@@ -9,7 +9,7 @@ Bertanggung jawab untuk:
 
 import math
 from pathlib import Path
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any, Optional
 
 import numpy as np
 from ultralytics import YOLO
