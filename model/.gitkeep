@@ -1,0 +1,3 @@
+# Folder ini menyimpan model YOLO hasil training.
+# File best.pt akan digenerate otomatis setelah menjalankan:
+#   python scripts/train.py
