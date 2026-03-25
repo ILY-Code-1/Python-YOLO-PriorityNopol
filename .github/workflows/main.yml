@@ -1,0 +1,214 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# .github/workflows/main.yml
+# CI/CD Pipeline – Priority Vehicle Detection API
+#
+# Flow:
+#   push ke main  →  [CI] Lint & Test  →  [CD] Build & Push Docker
+#                 →  [Deploy] SSH ke VPS  →  Pull & Restart container
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: CI/CD - Deploy Priority Vehicle API
+
+on:
+  push:
+    branches:
+      - main
+  # Izinkan trigger manual dari GitHub UI (tab Actions → Run workflow)
+  workflow_dispatch:
+
+# ─── Environment variables yang digunakan di seluruh workflow ────────────────
+env:
+  # Nama image di DockerHub: <username>/<repo>
+  DOCKER_IMAGE: ${{ secrets.DOCKER_USERNAME }}/priority-vehicle-api
+  # Nama container yang berjalan di VPS
+  DOCKER_CONTAINER: priority-vehicle-api
+  # Port yang dipublikasikan ke host VPS
+  DOCKER_PORT: "2200"
+
+# ─────────────────────────────────────────────────────────────────────────────
+jobs:
+
+  # ┌─────────────────────────────────────────────────────────────────┐
+  # │  JOB 1: CI – Lint & Syntax Check                                │
+  # └─────────────────────────────────────────────────────────────────┘
+  lint:
+    name: Lint & Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout kode dari repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Python 3.10
+      - name: Setup Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
+
+      # 3. Install linter (ringan, tidak perlu install semua dependencies)
+      - name: Install linting tools
+        run: |
+          pip install --no-cache-dir flake8 pyflakes
+
+      # 4. Jalankan syntax check dengan pyflakes (cepat, cek import & syntax)
+      - name: Syntax check (pyflakes)
+        run: |
+          python -m pyflakes app/
+
+      # 5. Jalankan style check dengan flake8
+      #    E501: batas panjang baris 120 (lebih longgar dari default 79)
+      - name: Style check (flake8)
+        run: |
+          flake8 app/ \
+            --max-line-length=120 \
+            --exclude=__pycache__,.venv \
+            --statistics \
+            --count
+
+  # ┌─────────────────────────────────────────────────────────────────┐
+  # │  JOB 2: CD – Build & Push Docker Image ke DockerHub             │
+  # └─────────────────────────────────────────────────────────────────┘
+  build-and-push:
+    name: Build & Push Docker Image
+    runs-on: ubuntu-latest
+    # Hanya jalankan setelah lint berhasil
+    needs: lint
+
+    outputs:
+      # Kirim image tag ke job berikutnya (deploy)
+      image_tag: ${{ steps.meta.outputs.version }}
+
+    steps:
+      # 1. Checkout kode
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Docker Buildx (untuk multi-platform build & layer caching)
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # 3. Login ke DockerHub menggunakan secrets
+      - name: Login to DockerHub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      # 4. Generate metadata image (tag otomatis berdasarkan branch & SHA)
+      #    Tag yang dihasilkan:
+      #      - latest          (saat push ke main)
+      #      - sha-<short_sha> (setiap commit, untuk rollback)
+      - name: Extract Docker metadata (tags & labels)
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKER_IMAGE }}
+          tags: |
+            type=raw,value=latest,enable={{is_default_branch}}
+            type=sha,prefix=sha-,format=short
+            type=ref,event=branch
+
+      # 5. Build dan push image ke DockerHub
+      #    --cache-from  : gunakan cache dari DockerHub (hemat waktu build)
+      #    --cache-to    : simpan cache baru ke DockerHub setelah build
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Layer caching untuk mempercepat build berikutnya
+          cache-from: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache
+          cache-to:   type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache,mode=max
+
+      # 6. Log ringkasan hasil build
+      - name: Summary
+        run: |
+          echo "### Docker Image Built & Pushed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Image:** \`${{ env.DOCKER_IMAGE }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Tags:**" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "${{ steps.meta.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+
+  # ┌─────────────────────────────────────────────────────────────────┐
+  # │  JOB 3: Deploy – SSH ke VPS, pull image, restart container      │
+  # └─────────────────────────────────────────────────────────────────┘
+  deploy:
+    name: Deploy to VPS
+    runs-on: ubuntu-latest
+    needs: build-and-push
+    # Hanya deploy dari branch main (bukan branch lain)
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      # 1. Deploy ke VPS via SSH menggunakan appleboy/ssh-action
+      #    Script dijalankan langsung di shell VPS
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host:     ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          port:     ${{ secrets.SERVER_PORT }}
+          # envs: kirim environment variable dari GitHub ke SSH session
+          envs: DOCKER_IMAGE,DOCKER_CONTAINER,DOCKER_PORT
+          script: |
+            set -e  # Hentikan jika ada command yang gagal
+
+            echo "============================================"
+            echo "  DEPLOY: Priority Vehicle Detection API"
+            echo "  Image : $DOCKER_IMAGE:latest"
+            echo "  Host  : $(hostname)"
+            echo "============================================"
+
+            # ── Stop dan hapus container lama (|| true = abaikan error jika tidak ada) ──
+            echo "[1/5] Menghentikan container lama..."
+            docker stop "$DOCKER_CONTAINER" || true
+
+            echo "[2/5] Menghapus container lama..."
+            docker rm   "$DOCKER_CONTAINER" || true
+
+            # ── Pull image terbaru dari DockerHub ─────────────────────────────────────
+            echo "[3/5] Pulling image terbaru dari DockerHub..."
+            docker pull "$DOCKER_IMAGE:latest"
+
+            # ── Jalankan container baru ───────────────────────────────────────────────
+            echo "[4/5] Menjalankan container baru..."
+            docker run -d \
+              --name    "$DOCKER_CONTAINER" \
+              --restart always \
+              -p        "$DOCKER_PORT:2200" \
+              --env-file /home/$USER/apps/priority-vehicle/.env \
+              -v        /home/$USER/apps/priority-vehicle/model:/app/model:ro \
+              "$DOCKER_IMAGE:latest"
+
+            # ── Verifikasi container berjalan ─────────────────────────────────────────
+            echo "[5/5] Verifikasi container..."
+            sleep 5
+            docker ps --filter "name=$DOCKER_CONTAINER" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+            # Bersihkan image lama yang tidak digunakan (hemat disk)
+            docker image prune -f
+
+            echo ""
+            echo "✓ Deploy berhasil!"
+
+      # 2. Notifikasi ringkasan deploy di GitHub Actions
+      - name: Deploy summary
+        run: |
+          echo "### Deploy Berhasil" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Key | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|-----|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Image | \`${{ env.DOCKER_IMAGE }}:latest\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Container | \`${{ env.DOCKER_CONTAINER }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Port | \`${{ env.DOCKER_PORT }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Commit | \`${{ github.sha }}\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| Triggered by | @${{ github.actor }} |" >> $GITHUB_STEP_SUMMARY

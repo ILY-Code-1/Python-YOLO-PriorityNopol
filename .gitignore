@@ -1,0 +1,69 @@
+# ─── Python ──────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ─── Virtual Environment ─────────────────────────────────────────────────────
+venv/
+env/
+.venv/
+ENV/
+
+# ─── Environment & Secrets (JANGAN PERNAH COMMIT) ───────────────────────────
+.env
+.env.local
+.env.production
+*.key
+*.pem
+
+# ─── Model Files (ukuran besar, simpan di luar repo) ─────────────────────────
+model/best.pt
+model/last.pt
+*.pt
+*.onnx
+*.tflite
+
+# ─── YOLO Training Output ────────────────────────────────────────────────────
+runs/
+
+# ─── Dataset (opsional: comment jika dataset kecil dan ingin di-commit) ──────
+dataset/images/train/*
+dataset/images/val/*
+dataset/labels/train/*
+dataset/labels/val/*
+# Kecualikan .gitkeep agar struktur folder tetap ada di repo
+!dataset/images/train/.gitkeep
+!dataset/images/val/.gitkeep
+!dataset/labels/train/.gitkeep
+!dataset/labels/val/.gitkeep
+
+# ─── IDE & Editor ────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ─── Log Files ───────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Docker ──────────────────────────────────────────────────────────────────
+.dockerignore
+
+# ─── Coverage & Test ─────────────────────────────────────────────────────────
+htmlcov/
+.coverage
+coverage.xml
+
+.env.example
