@@ -88,6 +88,8 @@ RUN groupadd --system appgroup && \
     useradd  --system --gid appgroup --no-create-home appuser && \
     chown -R appuser:appgroup /app
 
+RUN mkdir -p /tmp/easyocr && chmod -R 777 /tmp/easyocr
+
 USER appuser
 
 # Expose port aplikasi
