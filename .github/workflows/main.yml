@@ -57,6 +57,11 @@ jobs:
         run: |
           python -m pyflakes app/
 
+      - name: Format code
+        run: |
+          pip install black
+          black app
+
       # 5. Jalankan style check dengan flake8
       #    E501: batas panjang baris 120 (lebih longgar dari default 79)
       - name: Style check (flake8)
