@@ -1,0 +1,2777 @@
+{
+  "project": "Deteksi Otomatis Kendaraan Prioritas - YOLOv8n",
+  "created": "2026-03-26 16:04",
+  "total_images": 530,
+  "target_minimum": 500,
+  "target_met": true,
+  "classes": [
+    "ambulance",
+    "police",
+    "fire_truck",
+    "license_plate"
+  ],
+  "class_distribution": {
+    "ambulance": 124,
+    "fire_truck": 149,
+    "license_plate": 153,
+    "police": 106
+  },
+  "split": {
+    "ratio": "80/20 train/val",
+    "train": 424,
+    "val": 106
+  },
+  "has_annotations": false,
+  "annotation_status": "BELUM - perlu anotasi manual menggunakan LabelImg / Roboflow sebelum training",
+  "annotation_format": "YOLO: class_id x_center y_center width height (normalized 0-1)",
+  "image_format": "JPEG 90% quality, minimum 100x100px",
+  "collection_method": "BingImageCrawler (icrawler) - web crawl",
+  "sources": [
+    {
+      "name": "Bing Image Search via icrawler",
+      "type": "web_crawl",
+      "license": "Public web images - for research/educational use only (non-commercial)",
+      "classes_collected": [
+        "ambulance",
+        "police",
+        "fire_truck",
+        "license_plate"
+      ],
+      "raw_downloaded": 650,
+      "after_dedup_filter": 532
+    }
+  ],
+  "recommended_public_datasets": [
+    {
+      "name": "Roboflow Emergency Vehicle Detection",
+      "url": "https://universe.roboflow.com/test-ho5i1/emergency-vehicle-detection-yx3gh",
+      "images": "~3900",
+      "license": "CC BY 4.0",
+      "classes": [
+        "ambulance",
+        "police",
+        "fire_truck",
+        "car"
+      ],
+      "note": "Requires Roboflow API key - free account available at roboflow.com"
+    },
+    {
+      "name": "Roboflow ambulance-police-firetruck",
+      "url": "https://universe.roboflow.com/detection-cars/ambulance-police-firetruck",
+      "images": "~1900",
+      "license": "CC BY 4.0",
+      "classes": [
+        "ambulance",
+        "firetruck",
+        "police"
+      ],
+      "note": "Focused on emergency vehicles, no plates"
+    },
+    {
+      "name": "Roboflow Vehicles-OpenImages",
+      "url": "https://universe.roboflow.com/roboflow-gw7yv/vehicles-openimages",
+      "images": "627",
+      "license": "CC BY 4.0",
+      "classes": [
+        "ambulance",
+        "car",
+        "bus",
+        "truck",
+        "motorcycle"
+      ]
+    },
+    {
+      "name": "Roboflow vehicle and license plate (Plat Kendaraan)",
+      "url": "https://universe.roboflow.com/plat-kendaraan/vehicle-and-license-plate",
+      "images": "~2200",
+      "license": "MIT",
+      "classes": [
+        "license_plate",
+        "car",
+        "bus",
+        "truck",
+        "motorcycle"
+      ],
+      "note": "Indonesian plates - highly recommended for license_plate class"
+    },
+    {
+      "name": "Zenodo Indonesian License Plate (YOLOv11)",
+      "url": "https://zenodo.org/records/15605718",
+      "size": "126.8 MB zip",
+      "license": "CC BY 4.0",
+      "classes": [
+        "license_plate"
+      ],
+      "note": "Pure Indonesian plate dataset - wget download available"
+    },
+    {
+      "name": "Mendeley Central Asia Plates",
+      "url": "https://data.mendeley.com/datasets/4c5z833m6m/2",
+      "images": "500",
+      "license": "CC BY 4.0",
+      "classes": [
+        "license_plate"
+      ],
+      "note": "80/20 split included, annotations available"
+    }
+  ],
+  "next_steps": [
+    "1. Anotasi manual: pip install labelImg && labelImg",
+    "2. Atau upload ke Roboflow (gratis): universe.roboflow.com",
+    "3. Download Roboflow datasets dengan API key untuk data berlabel",
+    "4. Setelah anotasi selesai: python scripts/train.py",
+    "5. Augmentasi data menggunakan Albumentations atau Roboflow"
+  ],
+  "image_manifest": [
+    {
+      "filename": "img_00001.jpg",
+      "class": "ambulance",
+      "original": "000001.jpg"
+    },
+    {
+      "filename": "img_00002.jpg",
+      "class": "ambulance",
+      "original": "000002.jpg"
+    },
+    {
+      "filename": "img_00003.jpg",
+      "class": "ambulance",
+      "original": "000003.jpg"
+    },
+    {
+      "filename": "img_00004.jpg",
+      "class": "ambulance",
+      "original": "000006.jpeg"
+    },
+    {
+      "filename": "img_00005.jpg",
+      "class": "ambulance",
+      "original": "000007.jpeg"
+    },
+    {
+      "filename": "img_00006.jpg",
+      "class": "ambulance",
+      "original": "000010.jpg"
+    },
+    {
+      "filename": "img_00007.jpg",
+      "class": "ambulance",
+      "original": "000011.jpg"
+    },
+    {
+      "filename": "img_00008.jpg",
+      "class": "ambulance",
+      "original": "000012.jpg"
+    },
+    {
+      "filename": "img_00009.jpg",
+      "class": "ambulance",
+      "original": "000013.jpg"
+    },
+    {
+      "filename": "img_00010.jpg",
+      "class": "ambulance",
+      "original": "000014.jpg"
+    },
+    {
+      "filename": "img_00011.jpg",
+      "class": "ambulance",
+      "original": "000015.jpg"
+    },
+    {
+      "filename": "img_00012.jpg",
+      "class": "ambulance",
+      "original": "000016.jpg"
+    },
+    {
+      "filename": "img_00013.jpg",
+      "class": "ambulance",
+      "original": "000017.jpg"
+    },
+    {
+      "filename": "img_00014.jpg",
+      "class": "ambulance",
+      "original": "000018.jpg"
+    },
+    {
+      "filename": "img_00015.jpg",
+      "class": "ambulance",
+      "original": "000019.jpg"
+    },
+    {
+      "filename": "img_00016.jpg",
+      "class": "ambulance",
+      "original": "000020.jpg"
+    },
+    {
+      "filename": "img_00017.jpg",
+      "class": "ambulance",
+      "original": "000021.jpg"
+    },
+    {
+      "filename": "img_00018.jpg",
+      "class": "ambulance",
+      "original": "000022.jpg"
+    },
+    {
+      "filename": "img_00019.jpg",
+      "class": "ambulance",
+      "original": "000023.jpg"
+    },
+    {
+      "filename": "img_00020.jpg",
+      "class": "ambulance",
+      "original": "000024.jpg"
+    },
+    {
+      "filename": "img_00021.jpg",
+      "class": "ambulance",
+      "original": "000025.jpg"
+    },
+    {
+      "filename": "img_00022.jpg",
+      "class": "ambulance",
+      "original": "000026.jpg"
+    },
+    {
+      "filename": "img_00023.jpg",
+      "class": "ambulance",
+      "original": "000027.jpg"
+    },
+    {
+      "filename": "img_00024.jpg",
+      "class": "ambulance",
+      "original": "000028.jpg"
+    },
+    {
+      "filename": "img_00025.jpg",
+      "class": "ambulance",
+      "original": "000029.jpg"
+    },
+    {
+      "filename": "img_00026.jpg",
+      "class": "ambulance",
+      "original": "000030.jpg"
+    },
+    {
+      "filename": "img_00027.jpg",
+      "class": "ambulance",
+      "original": "000031.jpg"
+    },
+    {
+      "filename": "img_00028.jpg",
+      "class": "ambulance",
+      "original": "000032.jpg"
+    },
+    {
+      "filename": "img_00029.jpg",
+      "class": "ambulance",
+      "original": "000033.jpg"
+    },
+    {
+      "filename": "img_00030.jpg",
+      "class": "ambulance",
+      "original": "000034.jpg"
+    },
+    {
+      "filename": "img_00031.jpg",
+      "class": "ambulance",
+      "original": "000035.jpg"
+    },
+    {
+      "filename": "img_00032.jpg",
+      "class": "ambulance",
+      "original": "000036.jpg"
+    },
+    {
+      "filename": "img_00033.jpg",
+      "class": "ambulance",
+      "original": "000037.jpg"
+    },
+    {
+      "filename": "img_00034.jpg",
+      "class": "ambulance",
+      "original": "000038.jpg"
+    },
+    {
+      "filename": "img_00035.jpg",
+      "class": "ambulance",
+      "original": "000039.jpg"
+    },
+    {
+      "filename": "img_00036.jpg",
+      "class": "ambulance",
+      "original": "000040.jpg"
+    },
+    {
+      "filename": "img_00037.jpg",
+      "class": "ambulance",
+      "original": "000041.jpg"
+    },
+    {
+      "filename": "img_00038.jpg",
+      "class": "ambulance",
+      "original": "000042.jpg"
+    },
+    {
+      "filename": "img_00039.jpg",
+      "class": "ambulance",
+      "original": "000043.jpg"
+    },
+    {
+      "filename": "img_00040.jpg",
+      "class": "ambulance",
+      "original": "000044.jpg"
+    },
+    {
+      "filename": "img_00041.jpg",
+      "class": "ambulance",
+      "original": "000046.jpg"
+    },
+    {
+      "filename": "img_00042.jpg",
+      "class": "ambulance",
+      "original": "000047.jpg"
+    },
+    {
+      "filename": "img_00043.jpg",
+      "class": "ambulance",
+      "original": "000048.jpg"
+    },
+    {
+      "filename": "img_00044.jpg",
+      "class": "ambulance",
+      "original": "000051.jpg"
+    },
+    {
+      "filename": "img_00045.jpg",
+      "class": "ambulance",
+      "original": "000052.jpg"
+    },
+    {
+      "filename": "img_00046.jpg",
+      "class": "ambulance",
+      "original": "000053.jpg"
+    },
+    {
+      "filename": "img_00047.jpg",
+      "class": "ambulance",
+      "original": "000054.jpg"
+    },
+    {
+      "filename": "img_00048.jpg",
+      "class": "ambulance",
+      "original": "000055.jpg"
+    },
+    {
+      "filename": "img_00049.jpg",
+      "class": "ambulance",
+      "original": "000056.jpg"
+    },
+    {
+      "filename": "img_00050.jpg",
+      "class": "ambulance",
+      "original": "000057.jpg"
+    },
+    {
+      "filename": "img_00051.jpg",
+      "class": "ambulance",
+      "original": "000058.jpg"
+    },
+    {
+      "filename": "img_00052.jpg",
+      "class": "ambulance",
+      "original": "000061.jpg"
+    },
+    {
+      "filename": "img_00053.jpg",
+      "class": "ambulance",
+      "original": "000062.jpg"
+    },
+    {
+      "filename": "img_00054.jpg",
+      "class": "ambulance",
+      "original": "000063.jpg"
+    },
+    {
+      "filename": "img_00055.jpg",
+      "class": "ambulance",
+      "original": "000064.jpg"
+    },
+    {
+      "filename": "img_00056.jpg",
+      "class": "ambulance",
+      "original": "000065.jpg"
+    },
+    {
+      "filename": "img_00057.jpg",
+      "class": "ambulance",
+      "original": "000066.jpg"
+    },
+    {
+      "filename": "img_00058.jpg",
+      "class": "ambulance",
+      "original": "000069.jpg"
+    },
+    {
+      "filename": "img_00059.jpg",
+      "class": "ambulance",
+      "original": "000070.jpg"
+    },
+    {
+      "filename": "img_00060.jpg",
+      "class": "ambulance",
+      "original": "000071.jpg"
+    },
+    {
+      "filename": "img_00061.jpg",
+      "class": "ambulance",
+      "original": "000072.jpg"
+    },
+    {
+      "filename": "img_00062.jpg",
+      "class": "ambulance",
+      "original": "000073.jpg"
+    },
+    {
+      "filename": "img_00063.jpg",
+      "class": "ambulance",
+      "original": "000074.jpg"
+    },
+    {
+      "filename": "img_00064.jpg",
+      "class": "ambulance",
+      "original": "000075.jpg"
+    },
+    {
+      "filename": "img_00065.jpg",
+      "class": "ambulance",
+      "original": "000076.jpg"
+    },
+    {
+      "filename": "img_00066.jpg",
+      "class": "ambulance",
+      "original": "000077.jpg"
+    },
+    {
+      "filename": "img_00067.jpg",
+      "class": "ambulance",
+      "original": "000079.jpg"
+    },
+    {
+      "filename": "img_00068.jpg",
+      "class": "ambulance",
+      "original": "000080.jpg"
+    },
+    {
+      "filename": "img_00069.jpg",
+      "class": "ambulance",
+      "original": "000081.jpg"
+    },
+    {
+      "filename": "img_00070.jpg",
+      "class": "ambulance",
+      "original": "000083.jpg"
+    },
+    {
+      "filename": "img_00071.jpg",
+      "class": "ambulance",
+      "original": "000084.jpg"
+    },
+    {
+      "filename": "img_00072.jpg",
+      "class": "ambulance",
+      "original": "000088.jpg"
+    },
+    {
+      "filename": "img_00073.jpg",
+      "class": "ambulance",
+      "original": "000092.jpg"
+    },
+    {
+      "filename": "img_00074.jpg",
+      "class": "ambulance",
+      "original": "000093.jpg"
+    },
+    {
+      "filename": "img_00075.jpg",
+      "class": "ambulance",
+      "original": "000094.jpg"
+    },
+    {
+      "filename": "img_00076.jpg",
+      "class": "ambulance",
+      "original": "000095.jpg"
+    },
+    {
+      "filename": "img_00077.jpg",
+      "class": "ambulance",
+      "original": "000099.jpg"
+    },
+    {
+      "filename": "img_00078.jpg",
+      "class": "ambulance",
+      "original": "000101.jpg"
+    },
+    {
+      "filename": "img_00079.jpg",
+      "class": "ambulance",
+      "original": "000102.jpg"
+    },
+    {
+      "filename": "img_00080.jpg",
+      "class": "ambulance",
+      "original": "000103.jpg"
+    },
+    {
+      "filename": "img_00081.jpg",
+      "class": "ambulance",
+      "original": "000104.jpg"
+    },
+    {
+      "filename": "img_00082.jpg",
+      "class": "ambulance",
+      "original": "000105.jpg"
+    },
+    {
+      "filename": "img_00083.jpg",
+      "class": "ambulance",
+      "original": "000106.jpg"
+    },
+    {
+      "filename": "img_00084.jpg",
+      "class": "ambulance",
+      "original": "000107.jpg"
+    },
+    {
+      "filename": "img_00085.jpg",
+      "class": "ambulance",
+      "original": "000108.jpg"
+    },
+    {
+      "filename": "img_00086.jpg",
+      "class": "ambulance",
+      "original": "000109.jpg"
+    },
+    {
+      "filename": "img_00087.jpg",
+      "class": "ambulance",
+      "original": "000110.jpg"
+    },
+    {
+      "filename": "img_00088.jpg",
+      "class": "ambulance",
+      "original": "000111.jpg"
+    },
+    {
+      "filename": "img_00089.jpg",
+      "class": "ambulance",
+      "original": "000112.jpg"
+    },
+    {
+      "filename": "img_00090.jpg",
+      "class": "ambulance",
+      "original": "000113.jpg"
+    },
+    {
+      "filename": "img_00091.jpg",
+      "class": "ambulance",
+      "original": "000114.jpg"
+    },
+    {
+      "filename": "img_00092.jpg",
+      "class": "ambulance",
+      "original": "000115.jpg"
+    },
+    {
+      "filename": "img_00093.jpg",
+      "class": "ambulance",
+      "original": "000116.jpg"
+    },
+    {
+      "filename": "img_00094.jpg",
+      "class": "ambulance",
+      "original": "000117.jpg"
+    },
+    {
+      "filename": "img_00095.jpg",
+      "class": "ambulance",
+      "original": "000118.jpg"
+    },
+    {
+      "filename": "img_00096.jpg",
+      "class": "ambulance",
+      "original": "000119.jpg"
+    },
+    {
+      "filename": "img_00097.jpg",
+      "class": "ambulance",
+      "original": "000120.jpg"
+    },
+    {
+      "filename": "img_00098.jpg",
+      "class": "ambulance",
+      "original": "000121.jpg"
+    },
+    {
+      "filename": "img_00099.jpg",
+      "class": "ambulance",
+      "original": "000122.jpg"
+    },
+    {
+      "filename": "img_00100.jpg",
+      "class": "ambulance",
+      "original": "000123.jpg"
+    },
+    {
+      "filename": "img_00101.jpg",
+      "class": "ambulance",
+      "original": "000124.jpg"
+    },
+    {
+      "filename": "img_00102.jpg",
+      "class": "ambulance",
+      "original": "000125.jpg"
+    },
+    {
+      "filename": "img_00103.jpg",
+      "class": "ambulance",
+      "original": "000126.jpg"
+    },
+    {
+      "filename": "img_00104.jpg",
+      "class": "ambulance",
+      "original": "000127.jpg"
+    },
+    {
+      "filename": "img_00105.jpg",
+      "class": "ambulance",
+      "original": "000130.jpg"
+    },
+    {
+      "filename": "img_00106.jpg",
+      "class": "ambulance",
+      "original": "000133.jpg"
+    },
+    {
+      "filename": "img_00107.jpg",
+      "class": "ambulance",
+      "original": "000134.jpg"
+    },
+    {
+      "filename": "img_00108.jpg",
+      "class": "ambulance",
+      "original": "000135.jpg"
+    },
+    {
+      "filename": "img_00109.jpg",
+      "class": "ambulance",
+      "original": "000137.jpg"
+    },
+    {
+      "filename": "img_00110.jpg",
+      "class": "ambulance",
+      "original": "000138.jpg"
+    },
+    {
+      "filename": "img_00111.jpg",
+      "class": "ambulance",
+      "original": "000139.jpg"
+    },
+    {
+      "filename": "img_00112.jpg",
+      "class": "ambulance",
+      "original": "000140.jpg"
+    },
+    {
+      "filename": "img_00113.jpg",
+      "class": "ambulance",
+      "original": "000141.jpg"
+    },
+    {
+      "filename": "img_00114.jpg",
+      "class": "ambulance",
+      "original": "000142.jpg"
+    },
+    {
+      "filename": "img_00115.jpg",
+      "class": "ambulance",
+      "original": "000143.jpg"
+    },
+    {
+      "filename": "img_00116.jpg",
+      "class": "ambulance",
+      "original": "000144.jpg"
+    },
+    {
+      "filename": "img_00117.jpg",
+      "class": "ambulance",
+      "original": "000145.jpg"
+    },
+    {
+      "filename": "img_00118.jpg",
+      "class": "ambulance",
+      "original": "000146.jpg"
+    },
+    {
+      "filename": "img_00119.jpg",
+      "class": "ambulance",
+      "original": "000147.jpg"
+    },
+    {
+      "filename": "img_00120.jpg",
+      "class": "ambulance",
+      "original": "000148.jpg"
+    },
+    {
+      "filename": "img_00121.jpg",
+      "class": "ambulance",
+      "original": "000149.jpg"
+    },
+    {
+      "filename": "img_00122.jpg",
+      "class": "ambulance",
+      "original": "000150.jpg"
+    },
+    {
+      "filename": "img_00123.jpg",
+      "class": "ambulance",
+      "original": "000151.jpg"
+    },
+    {
+      "filename": "img_00124.jpg",
+      "class": "ambulance",
+      "original": "000152.jpg"
+    },
+    {
+      "filename": "img_00125.jpg",
+      "class": "fire_truck",
+      "original": "000001.jpg"
+    },
+    {
+      "filename": "img_00126.jpg",
+      "class": "fire_truck",
+      "original": "000002.jpg"
+    },
+    {
+      "filename": "img_00127.jpg",
+      "class": "fire_truck",
+      "original": "000003.jpg"
+    },
+    {
+      "filename": "img_00128.jpg",
+      "class": "fire_truck",
+      "original": "000004.jpg"
+    },
+    {
+      "filename": "img_00129.jpg",
+      "class": "fire_truck",
+      "original": "000005.jpg"
+    },
+    {
+      "filename": "img_00130.jpg",
+      "class": "fire_truck",
+      "original": "000006.jpg"
+    },
+    {
+      "filename": "img_00131.jpg",
+      "class": "fire_truck",
+      "original": "000007.jpg"
+    },
+    {
+      "filename": "img_00132.jpg",
+      "class": "fire_truck",
+      "original": "000008.jpg"
+    },
+    {
+      "filename": "img_00133.jpg",
+      "class": "fire_truck",
+      "original": "000009.jpg"
+    },
+    {
+      "filename": "img_00134.jpg",
+      "class": "fire_truck",
+      "original": "000010.jpg"
+    },
+    {
+      "filename": "img_00135.jpg",
+      "class": "fire_truck",
+      "original": "000011.jpg"
+    },
+    {
+      "filename": "img_00136.jpg",
+      "class": "fire_truck",
+      "original": "000012.jpg"
+    },
+    {
+      "filename": "img_00137.jpg",
+      "class": "fire_truck",
+      "original": "000013.jpg"
+    },
+    {
+      "filename": "img_00138.jpg",
+      "class": "fire_truck",
+      "original": "000014.jpg"
+    },
+    {
+      "filename": "img_00139.jpg",
+      "class": "fire_truck",
+      "original": "000015.jpg"
+    },
+    {
+      "filename": "img_00140.jpg",
+      "class": "fire_truck",
+      "original": "000016.jpg"
+    },
+    {
+      "filename": "img_00141.jpg",
+      "class": "fire_truck",
+      "original": "000017.jpg"
+    },
+    {
+      "filename": "img_00142.jpg",
+      "class": "fire_truck",
+      "original": "000018.jpg"
+    },
+    {
+      "filename": "img_00143.jpg",
+      "class": "fire_truck",
+      "original": "000019.jpg"
+    },
+    {
+      "filename": "img_00144.jpg",
+      "class": "fire_truck",
+      "original": "000020.jpg"
+    },
+    {
+      "filename": "img_00145.jpg",
+      "class": "fire_truck",
+      "original": "000021.jpg"
+    },
+    {
+      "filename": "img_00146.jpg",
+      "class": "fire_truck",
+      "original": "000022.jpg"
+    },
+    {
+      "filename": "img_00147.jpg",
+      "class": "fire_truck",
+      "original": "000023.jpg"
+    },
+    {
+      "filename": "img_00148.jpg",
+      "class": "fire_truck",
+      "original": "000024.jpg"
+    },
+    {
+      "filename": "img_00149.jpg",
+      "class": "fire_truck",
+      "original": "000025.jpg"
+    },
+    {
+      "filename": "img_00150.jpg",
+      "class": "fire_truck",
+      "original": "000026.jpg"
+    },
+    {
+      "filename": "img_00151.jpg",
+      "class": "fire_truck",
+      "original": "000027.jpg"
+    },
+    {
+      "filename": "img_00152.jpg",
+      "class": "fire_truck",
+      "original": "000028.jpg"
+    },
+    {
+      "filename": "img_00153.jpg",
+      "class": "fire_truck",
+      "original": "000029.jpg"
+    },
+    {
+      "filename": "img_00154.jpg",
+      "class": "fire_truck",
+      "original": "000030.jpg"
+    },
+    {
+      "filename": "img_00155.jpg",
+      "class": "fire_truck",
+      "original": "000031.jpg"
+    },
+    {
+      "filename": "img_00156.jpg",
+      "class": "fire_truck",
+      "original": "000032.jpg"
+    },
+    {
+      "filename": "img_00157.jpg",
+      "class": "fire_truck",
+      "original": "000033.jpg"
+    },
+    {
+      "filename": "img_00158.jpg",
+      "class": "fire_truck",
+      "original": "000034.jpg"
+    },
+    {
+      "filename": "img_00159.jpg",
+      "class": "fire_truck",
+      "original": "000035.jpg"
+    },
+    {
+      "filename": "img_00160.jpg",
+      "class": "fire_truck",
+      "original": "000036.jpg"
+    },
+    {
+      "filename": "img_00161.jpg",
+      "class": "fire_truck",
+      "original": "000038.jpg"
+    },
+    {
+      "filename": "img_00162.jpg",
+      "class": "fire_truck",
+      "original": "000039.jpg"
+    },
+    {
+      "filename": "img_00163.jpg",
+      "class": "fire_truck",
+      "original": "000040.jpg"
+    },
+    {
+      "filename": "img_00164.jpg",
+      "class": "fire_truck",
+      "original": "000041.jpg"
+    },
+    {
+      "filename": "img_00165.jpg",
+      "class": "fire_truck",
+      "original": "000042.jpg"
+    },
+    {
+      "filename": "img_00166.jpg",
+      "class": "fire_truck",
+      "original": "000043.jpg"
+    },
+    {
+      "filename": "img_00167.jpg",
+      "class": "fire_truck",
+      "original": "000044.jpg"
+    },
+    {
+      "filename": "img_00168.jpg",
+      "class": "fire_truck",
+      "original": "000045.jpg"
+    },
+    {
+      "filename": "img_00169.jpg",
+      "class": "fire_truck",
+      "original": "000046.jpg"
+    },
+    {
+      "filename": "img_00170.jpg",
+      "class": "fire_truck",
+      "original": "000047.jpg"
+    },
+    {
+      "filename": "img_00171.jpg",
+      "class": "fire_truck",
+      "original": "000048.jpg"
+    },
+    {
+      "filename": "img_00172.jpg",
+      "class": "fire_truck",
+      "original": "000049.jpg"
+    },
+    {
+      "filename": "img_00173.jpg",
+      "class": "fire_truck",
+      "original": "000050.jpg"
+    },
+    {
+      "filename": "img_00174.jpg",
+      "class": "fire_truck",
+      "original": "000051.jpg"
+    },
+    {
+      "filename": "img_00175.jpg",
+      "class": "fire_truck",
+      "original": "000052.jpg"
+    },
+    {
+      "filename": "img_00176.jpg",
+      "class": "fire_truck",
+      "original": "000053.jpg"
+    },
+    {
+      "filename": "img_00177.jpg",
+      "class": "fire_truck",
+      "original": "000054.jpg"
+    },
+    {
+      "filename": "img_00178.jpg",
+      "class": "fire_truck",
+      "original": "000055.jpg"
+    },
+    {
+      "filename": "img_00179.jpg",
+      "class": "fire_truck",
+      "original": "000056.jpg"
+    },
+    {
+      "filename": "img_00180.jpg",
+      "class": "fire_truck",
+      "original": "000057.jpg"
+    },
+    {
+      "filename": "img_00181.jpg",
+      "class": "fire_truck",
+      "original": "000058.jpg"
+    },
+    {
+      "filename": "img_00182.jpg",
+      "class": "fire_truck",
+      "original": "000059.jpg"
+    },
+    {
+      "filename": "img_00183.jpg",
+      "class": "fire_truck",
+      "original": "000061.jpg"
+    },
+    {
+      "filename": "img_00184.jpg",
+      "class": "fire_truck",
+      "original": "000062.jpg"
+    },
+    {
+      "filename": "img_00185.jpg",
+      "class": "fire_truck",
+      "original": "000063.jpg"
+    },
+    {
+      "filename": "img_00186.jpg",
+      "class": "fire_truck",
+      "original": "000064.jpg"
+    },
+    {
+      "filename": "img_00187.jpg",
+      "class": "fire_truck",
+      "original": "000065.jpg"
+    },
+    {
+      "filename": "img_00188.jpg",
+      "class": "fire_truck",
+      "original": "000066.jpg"
+    },
+    {
+      "filename": "img_00189.jpg",
+      "class": "fire_truck",
+      "original": "000067.jpg"
+    },
+    {
+      "filename": "img_00190.jpg",
+      "class": "fire_truck",
+      "original": "000068.jpg"
+    },
+    {
+      "filename": "img_00191.jpg",
+      "class": "fire_truck",
+      "original": "000069.jpg"
+    },
+    {
+      "filename": "img_00192.jpg",
+      "class": "fire_truck",
+      "original": "000070.jpg"
+    },
+    {
+      "filename": "img_00193.jpg",
+      "class": "fire_truck",
+      "original": "000072.jpg"
+    },
+    {
+      "filename": "img_00194.jpg",
+      "class": "fire_truck",
+      "original": "000073.jpeg"
+    },
+    {
+      "filename": "img_00195.jpg",
+      "class": "fire_truck",
+      "original": "000074.jpg"
+    },
+    {
+      "filename": "img_00196.jpg",
+      "class": "fire_truck",
+      "original": "000075.jpg"
+    },
+    {
+      "filename": "img_00197.jpg",
+      "class": "fire_truck",
+      "original": "000076.jpg"
+    },
+    {
+      "filename": "img_00198.jpg",
+      "class": "fire_truck",
+      "original": "000077.jpg"
+    },
+    {
+      "filename": "img_00199.jpg",
+      "class": "fire_truck",
+      "original": "000078.jpg"
+    },
+    {
+      "filename": "img_00200.jpg",
+      "class": "fire_truck",
+      "original": "000079.jpg"
+    },
+    {
+      "filename": "img_00201.jpg",
+      "class": "fire_truck",
+      "original": "000080.jpg"
+    },
+    {
+      "filename": "img_00202.jpg",
+      "class": "fire_truck",
+      "original": "000081.jpg"
+    },
+    {
+      "filename": "img_00203.jpg",
+      "class": "fire_truck",
+      "original": "000082.jpg"
+    },
+    {
+      "filename": "img_00204.jpg",
+      "class": "fire_truck",
+      "original": "000083.jpg"
+    },
+    {
+      "filename": "img_00205.jpg",
+      "class": "fire_truck",
+      "original": "000084.jpg"
+    },
+    {
+      "filename": "img_00206.jpg",
+      "class": "fire_truck",
+      "original": "000085.jpg"
+    },
+    {
+      "filename": "img_00207.jpg",
+      "class": "fire_truck",
+      "original": "000086.jpg"
+    },
+    {
+      "filename": "img_00208.jpg",
+      "class": "fire_truck",
+      "original": "000087.jpg"
+    },
+    {
+      "filename": "img_00209.jpg",
+      "class": "fire_truck",
+      "original": "000088.jpg"
+    },
+    {
+      "filename": "img_00210.jpg",
+      "class": "fire_truck",
+      "original": "000089.jpg"
+    },
+    {
+      "filename": "img_00211.jpg",
+      "class": "fire_truck",
+      "original": "000090.jpg"
+    },
+    {
+      "filename": "img_00212.jpg",
+      "class": "fire_truck",
+      "original": "000091.jpg"
+    },
+    {
+      "filename": "img_00213.jpg",
+      "class": "fire_truck",
+      "original": "000092.jpg"
+    },
+    {
+      "filename": "img_00214.jpg",
+      "class": "fire_truck",
+      "original": "000093.jpg"
+    },
+    {
+      "filename": "img_00215.jpg",
+      "class": "fire_truck",
+      "original": "000094.jpg"
+    },
+    {
+      "filename": "img_00216.jpg",
+      "class": "fire_truck",
+      "original": "000095.jpg"
+    },
+    {
+      "filename": "img_00217.jpg",
+      "class": "fire_truck",
+      "original": "000096.jpg"
+    },
+    {
+      "filename": "img_00218.jpg",
+      "class": "fire_truck",
+      "original": "000097.jpg"
+    },
+    {
+      "filename": "img_00219.jpg",
+      "class": "fire_truck",
+      "original": "000098.jpg"
+    },
+    {
+      "filename": "img_00220.jpg",
+      "class": "fire_truck",
+      "original": "000099.jpg"
+    },
+    {
+      "filename": "img_00221.jpg",
+      "class": "fire_truck",
+      "original": "000100.jpg"
+    },
+    {
+      "filename": "img_00222.jpg",
+      "class": "fire_truck",
+      "original": "000101.jpg"
+    },
+    {
+      "filename": "img_00223.jpg",
+      "class": "fire_truck",
+      "original": "000102.jpg"
+    },
+    {
+      "filename": "img_00224.jpg",
+      "class": "fire_truck",
+      "original": "000103.jpg"
+    },
+    {
+      "filename": "img_00225.jpg",
+      "class": "fire_truck",
+      "original": "000104.jpg"
+    },
+    {
+      "filename": "img_00226.jpg",
+      "class": "fire_truck",
+      "original": "000105.jpg"
+    },
+    {
+      "filename": "img_00227.jpg",
+      "class": "fire_truck",
+      "original": "000106.jpg"
+    },
+    {
+      "filename": "img_00228.jpg",
+      "class": "fire_truck",
+      "original": "000107.jpg"
+    },
+    {
+      "filename": "img_00229.jpg",
+      "class": "fire_truck",
+      "original": "000108.jpg"
+    },
+    {
+      "filename": "img_00230.jpg",
+      "class": "fire_truck",
+      "original": "000109.jpg"
+    },
+    {
+      "filename": "img_00231.jpg",
+      "class": "fire_truck",
+      "original": "000110.jpg"
+    },
+    {
+      "filename": "img_00232.jpg",
+      "class": "fire_truck",
+      "original": "000111.jpg"
+    },
+    {
+      "filename": "img_00233.jpg",
+      "class": "fire_truck",
+      "original": "000112.jpg"
+    },
+    {
+      "filename": "img_00234.jpg",
+      "class": "fire_truck",
+      "original": "000113.jpg"
+    },
+    {
+      "filename": "img_00235.jpg",
+      "class": "fire_truck",
+      "original": "000114.jpg"
+    },
+    {
+      "filename": "img_00236.jpg",
+      "class": "fire_truck",
+      "original": "000115.jpg"
+    },
+    {
+      "filename": "img_00237.jpg",
+      "class": "fire_truck",
+      "original": "000117.jpg"
+    },
+    {
+      "filename": "img_00238.jpg",
+      "class": "fire_truck",
+      "original": "000118.jpg"
+    },
+    {
+      "filename": "img_00239.jpg",
+      "class": "fire_truck",
+      "original": "000119.jpg"
+    },
+    {
+      "filename": "img_00240.jpg",
+      "class": "fire_truck",
+      "original": "000120.jpg"
+    },
+    {
+      "filename": "img_00241.jpg",
+      "class": "fire_truck",
+      "original": "000121.jpg"
+    },
+    {
+      "filename": "img_00242.jpg",
+      "class": "fire_truck",
+      "original": "000122.jpg"
+    },
+    {
+      "filename": "img_00243.jpg",
+      "class": "fire_truck",
+      "original": "000123.jpg"
+    },
+    {
+      "filename": "img_00244.jpg",
+      "class": "fire_truck",
+      "original": "000124.jpg"
+    },
+    {
+      "filename": "img_00245.jpg",
+      "class": "fire_truck",
+      "original": "000125.jpg"
+    },
+    {
+      "filename": "img_00246.jpg",
+      "class": "fire_truck",
+      "original": "000127.jpg"
+    },
+    {
+      "filename": "img_00247.jpg",
+      "class": "fire_truck",
+      "original": "000128.jpg"
+    },
+    {
+      "filename": "img_00248.jpg",
+      "class": "fire_truck",
+      "original": "000129.jpg"
+    },
+    {
+      "filename": "img_00249.jpg",
+      "class": "fire_truck",
+      "original": "000130.jpg"
+    },
+    {
+      "filename": "img_00250.jpg",
+      "class": "fire_truck",
+      "original": "000131.jpg"
+    },
+    {
+      "filename": "img_00251.jpg",
+      "class": "fire_truck",
+      "original": "000132.jpg"
+    },
+    {
+      "filename": "img_00252.jpg",
+      "class": "fire_truck",
+      "original": "000133.jpg"
+    },
+    {
+      "filename": "img_00253.jpg",
+      "class": "fire_truck",
+      "original": "000135.jpg"
+    },
+    {
+      "filename": "img_00254.jpg",
+      "class": "fire_truck",
+      "original": "000136.jpg"
+    },
+    {
+      "filename": "img_00255.jpg",
+      "class": "fire_truck",
+      "original": "000137.jpg"
+    },
+    {
+      "filename": "img_00256.jpg",
+      "class": "fire_truck",
+      "original": "000138.jpg"
+    },
+    {
+      "filename": "img_00257.jpg",
+      "class": "fire_truck",
+      "original": "000141.jpg"
+    },
+    {
+      "filename": "img_00258.jpg",
+      "class": "fire_truck",
+      "original": "000142.jpg"
+    },
+    {
+      "filename": "img_00259.jpg",
+      "class": "fire_truck",
+      "original": "000143.jpg"
+    },
+    {
+      "filename": "img_00260.jpg",
+      "class": "fire_truck",
+      "original": "000144.jpg"
+    },
+    {
+      "filename": "img_00261.jpg",
+      "class": "fire_truck",
+      "original": "000146.jpg"
+    },
+    {
+      "filename": "img_00262.jpg",
+      "class": "fire_truck",
+      "original": "000148.jpg"
+    },
+    {
+      "filename": "img_00263.jpg",
+      "class": "fire_truck",
+      "original": "000149.jpg"
+    },
+    {
+      "filename": "img_00264.jpg",
+      "class": "fire_truck",
+      "original": "000150.jpg"
+    },
+    {
+      "filename": "img_00265.jpg",
+      "class": "fire_truck",
+      "original": "000151.jpg"
+    },
+    {
+      "filename": "img_00266.jpg",
+      "class": "fire_truck",
+      "original": "000152.jpg"
+    },
+    {
+      "filename": "img_00267.jpg",
+      "class": "fire_truck",
+      "original": "000153.jpg"
+    },
+    {
+      "filename": "img_00268.jpg",
+      "class": "fire_truck",
+      "original": "000154.jpg"
+    },
+    {
+      "filename": "img_00269.jpg",
+      "class": "fire_truck",
+      "original": "000155.jpg"
+    },
+    {
+      "filename": "img_00270.jpg",
+      "class": "fire_truck",
+      "original": "000156.jpg"
+    },
+    {
+      "filename": "img_00271.jpg",
+      "class": "fire_truck",
+      "original": "000157.jpg"
+    },
+    {
+      "filename": "img_00272.jpg",
+      "class": "fire_truck",
+      "original": "000158.jpg"
+    },
+    {
+      "filename": "img_00273.jpg",
+      "class": "fire_truck",
+      "original": "000159.jpg"
+    },
+    {
+      "filename": "img_00274.jpg",
+      "class": "license_plate",
+      "original": "000001.jpg"
+    },
+    {
+      "filename": "img_00275.jpg",
+      "class": "license_plate",
+      "original": "000002.jpg"
+    },
+    {
+      "filename": "img_00276.jpg",
+      "class": "license_plate",
+      "original": "000003.jpg"
+    },
+    {
+      "filename": "img_00277.jpg",
+      "class": "license_plate",
+      "original": "000004.jpg"
+    },
+    {
+      "filename": "img_00278.jpg",
+      "class": "license_plate",
+      "original": "000005.jpg"
+    },
+    {
+      "filename": "img_00279.jpg",
+      "class": "license_plate",
+      "original": "000006.jpg"
+    },
+    {
+      "filename": "img_00280.jpg",
+      "class": "license_plate",
+      "original": "000007.jpg"
+    },
+    {
+      "filename": "img_00281.jpg",
+      "class": "license_plate",
+      "original": "000008.jpg"
+    },
+    {
+      "filename": "img_00282.jpg",
+      "class": "license_plate",
+      "original": "000009.jpg"
+    },
+    {
+      "filename": "img_00283.jpg",
+      "class": "license_plate",
+      "original": "000010.jpg"
+    },
+    {
+      "filename": "img_00284.jpg",
+      "class": "license_plate",
+      "original": "000011.jpg"
+    },
+    {
+      "filename": "img_00285.jpg",
+      "class": "license_plate",
+      "original": "000012.jpg"
+    },
+    {
+      "filename": "img_00286.jpg",
+      "class": "license_plate",
+      "original": "000013.jpg"
+    },
+    {
+      "filename": "img_00287.jpg",
+      "class": "license_plate",
+      "original": "000014.jpg"
+    },
+    {
+      "filename": "img_00288.jpg",
+      "class": "license_plate",
+      "original": "000015.jpg"
+    },
+    {
+      "filename": "img_00289.jpg",
+      "class": "license_plate",
+      "original": "000016.jpg"
+    },
+    {
+      "filename": "img_00290.jpg",
+      "class": "license_plate",
+      "original": "000017.jpg"
+    },
+    {
+      "filename": "img_00291.jpg",
+      "class": "license_plate",
+      "original": "000018.jpg"
+    },
+    {
+      "filename": "img_00292.jpg",
+      "class": "license_plate",
+      "original": "000019.jpg"
+    },
+    {
+      "filename": "img_00293.jpg",
+      "class": "license_plate",
+      "original": "000020.jpg"
+    },
+    {
+      "filename": "img_00294.jpg",
+      "class": "license_plate",
+      "original": "000021.jpg"
+    },
+    {
+      "filename": "img_00295.jpg",
+      "class": "license_plate",
+      "original": "000022.jpg"
+    },
+    {
+      "filename": "img_00296.jpg",
+      "class": "license_plate",
+      "original": "000023.jpg"
+    },
+    {
+      "filename": "img_00297.jpg",
+      "class": "license_plate",
+      "original": "000024.jpg"
+    },
+    {
+      "filename": "img_00298.jpg",
+      "class": "license_plate",
+      "original": "000025.jpg"
+    },
+    {
+      "filename": "img_00299.jpg",
+      "class": "license_plate",
+      "original": "000026.jpg"
+    },
+    {
+      "filename": "img_00300.jpg",
+      "class": "license_plate",
+      "original": "000027.jpg"
+    },
+    {
+      "filename": "img_00301.jpg",
+      "class": "license_plate",
+      "original": "000028.jpg"
+    },
+    {
+      "filename": "img_00302.jpg",
+      "class": "license_plate",
+      "original": "000029.jpg"
+    },
+    {
+      "filename": "img_00303.jpg",
+      "class": "license_plate",
+      "original": "000030.jpg"
+    },
+    {
+      "filename": "img_00304.jpg",
+      "class": "license_plate",
+      "original": "000031.jpg"
+    },
+    {
+      "filename": "img_00305.jpg",
+      "class": "license_plate",
+      "original": "000032.jpg"
+    },
+    {
+      "filename": "img_00306.jpg",
+      "class": "license_plate",
+      "original": "000033.jpg"
+    },
+    {
+      "filename": "img_00307.jpg",
+      "class": "license_plate",
+      "original": "000034.jpg"
+    },
+    {
+      "filename": "img_00308.jpg",
+      "class": "license_plate",
+      "original": "000035.jpg"
+    },
+    {
+      "filename": "img_00309.jpg",
+      "class": "license_plate",
+      "original": "000036.jpg"
+    },
+    {
+      "filename": "img_00310.jpg",
+      "class": "license_plate",
+      "original": "000037.jpg"
+    },
+    {
+      "filename": "img_00311.jpg",
+      "class": "license_plate",
+      "original": "000038.jpg"
+    },
+    {
+      "filename": "img_00312.jpg",
+      "class": "license_plate",
+      "original": "000039.jpg"
+    },
+    {
+      "filename": "img_00313.jpg",
+      "class": "license_plate",
+      "original": "000040.jpg"
+    },
+    {
+      "filename": "img_00314.jpg",
+      "class": "license_plate",
+      "original": "000041.jpg"
+    },
+    {
+      "filename": "img_00315.jpg",
+      "class": "license_plate",
+      "original": "000042.jpg"
+    },
+    {
+      "filename": "img_00316.jpg",
+      "class": "license_plate",
+      "original": "000043.jpg"
+    },
+    {
+      "filename": "img_00317.jpg",
+      "class": "license_plate",
+      "original": "000044.jpg"
+    },
+    {
+      "filename": "img_00318.jpg",
+      "class": "license_plate",
+      "original": "000045.jpg"
+    },
+    {
+      "filename": "img_00319.jpg",
+      "class": "license_plate",
+      "original": "000046.jpg"
+    },
+    {
+      "filename": "img_00320.jpg",
+      "class": "license_plate",
+      "original": "000047.jpg"
+    },
+    {
+      "filename": "img_00321.jpg",
+      "class": "license_plate",
+      "original": "000048.jpg"
+    },
+    {
+      "filename": "img_00322.jpg",
+      "class": "license_plate",
+      "original": "000049.jpg"
+    },
+    {
+      "filename": "img_00323.jpg",
+      "class": "license_plate",
+      "original": "000051.jpg"
+    },
+    {
+      "filename": "img_00324.jpg",
+      "class": "license_plate",
+      "original": "000052.jpg"
+    },
+    {
+      "filename": "img_00325.jpg",
+      "class": "license_plate",
+      "original": "000053.jpg"
+    },
+    {
+      "filename": "img_00326.jpg",
+      "class": "license_plate",
+      "original": "000054.jpg"
+    },
+    {
+      "filename": "img_00327.jpg",
+      "class": "license_plate",
+      "original": "000055.jpg"
+    },
+    {
+      "filename": "img_00328.jpg",
+      "class": "license_plate",
+      "original": "000056.jpg"
+    },
+    {
+      "filename": "img_00329.jpg",
+      "class": "license_plate",
+      "original": "000057.jpg"
+    },
+    {
+      "filename": "img_00330.jpg",
+      "class": "license_plate",
+      "original": "000058.jpg"
+    },
+    {
+      "filename": "img_00331.jpg",
+      "class": "license_plate",
+      "original": "000059.jpg"
+    },
+    {
+      "filename": "img_00332.jpg",
+      "class": "license_plate",
+      "original": "000060.jpg"
+    },
+    {
+      "filename": "img_00333.jpg",
+      "class": "license_plate",
+      "original": "000061.jpg"
+    },
+    {
+      "filename": "img_00334.jpg",
+      "class": "license_plate",
+      "original": "000062.jpg"
+    },
+    {
+      "filename": "img_00335.jpg",
+      "class": "license_plate",
+      "original": "000063.jpg"
+    },
+    {
+      "filename": "img_00336.jpg",
+      "class": "license_plate",
+      "original": "000064.jpg"
+    },
+    {
+      "filename": "img_00337.jpg",
+      "class": "license_plate",
+      "original": "000065.jpg"
+    },
+    {
+      "filename": "img_00338.jpg",
+      "class": "license_plate",
+      "original": "000066.jpg"
+    },
+    {
+      "filename": "img_00339.jpg",
+      "class": "license_plate",
+      "original": "000067.jpg"
+    },
+    {
+      "filename": "img_00340.jpg",
+      "class": "license_plate",
+      "original": "000068.jpg"
+    },
+    {
+      "filename": "img_00341.jpg",
+      "class": "license_plate",
+      "original": "000069.jpg"
+    },
+    {
+      "filename": "img_00342.jpg",
+      "class": "license_plate",
+      "original": "000070.jpg"
+    },
+    {
+      "filename": "img_00343.jpg",
+      "class": "license_plate",
+      "original": "000071.jpg"
+    },
+    {
+      "filename": "img_00344.jpg",
+      "class": "license_plate",
+      "original": "000072.jpg"
+    },
+    {
+      "filename": "img_00345.jpg",
+      "class": "license_plate",
+      "original": "000073.jpg"
+    },
+    {
+      "filename": "img_00346.jpg",
+      "class": "license_plate",
+      "original": "000074.jpg"
+    },
+    {
+      "filename": "img_00347.jpg",
+      "class": "license_plate",
+      "original": "000075.jpg"
+    },
+    {
+      "filename": "img_00348.jpg",
+      "class": "license_plate",
+      "original": "000076.jpg"
+    },
+    {
+      "filename": "img_00349.jpg",
+      "class": "license_plate",
+      "original": "000078.jpg"
+    },
+    {
+      "filename": "img_00350.jpg",
+      "class": "license_plate",
+      "original": "000079.jpg"
+    },
+    {
+      "filename": "img_00351.jpg",
+      "class": "license_plate",
+      "original": "000080.jpg"
+    },
+    {
+      "filename": "img_00352.jpg",
+      "class": "license_plate",
+      "original": "000081.jpg"
+    },
+    {
+      "filename": "img_00353.jpg",
+      "class": "license_plate",
+      "original": "000082.jpg"
+    },
+    {
+      "filename": "img_00354.jpg",
+      "class": "license_plate",
+      "original": "000083.jpg"
+    },
+    {
+      "filename": "img_00355.jpg",
+      "class": "license_plate",
+      "original": "000088.jpg"
+    },
+    {
+      "filename": "img_00356.jpg",
+      "class": "license_plate",
+      "original": "000089.jpg"
+    },
+    {
+      "filename": "img_00357.jpg",
+      "class": "license_plate",
+      "original": "000090.jpg"
+    },
+    {
+      "filename": "img_00358.jpg",
+      "class": "license_plate",
+      "original": "000091.jpg"
+    },
+    {
+      "filename": "img_00359.jpg",
+      "class": "license_plate",
+      "original": "000092.jpg"
+    },
+    {
+      "filename": "img_00360.jpg",
+      "class": "license_plate",
+      "original": "000095.jpg"
+    },
+    {
+      "filename": "img_00361.jpg",
+      "class": "license_plate",
+      "original": "000096.jpg"
+    },
+    {
+      "filename": "img_00362.jpg",
+      "class": "license_plate",
+      "original": "000098.jpg"
+    },
+    {
+      "filename": "img_00363.jpg",
+      "class": "license_plate",
+      "original": "000099.jpg"
+    },
+    {
+      "filename": "img_00364.jpg",
+      "class": "license_plate",
+      "original": "000100.jpg"
+    },
+    {
+      "filename": "img_00365.jpg",
+      "class": "license_plate",
+      "original": "000101.jpg"
+    },
+    {
+      "filename": "img_00366.jpg",
+      "class": "license_plate",
+      "original": "000102.jpg"
+    },
+    {
+      "filename": "img_00367.jpg",
+      "class": "license_plate",
+      "original": "000103.jpg"
+    },
+    {
+      "filename": "img_00368.jpg",
+      "class": "license_plate",
+      "original": "000104.jpg"
+    },
+    {
+      "filename": "img_00369.jpg",
+      "class": "license_plate",
+      "original": "000105.jpg"
+    },
+    {
+      "filename": "img_00370.jpg",
+      "class": "license_plate",
+      "original": "000107.jpg"
+    },
+    {
+      "filename": "img_00371.jpg",
+      "class": "license_plate",
+      "original": "000109.jpg"
+    },
+    {
+      "filename": "img_00372.jpg",
+      "class": "license_plate",
+      "original": "000110.jpg"
+    },
+    {
+      "filename": "img_00373.jpg",
+      "class": "license_plate",
+      "original": "000111.jpg"
+    },
+    {
+      "filename": "img_00374.jpg",
+      "class": "license_plate",
+      "original": "000112.jpg"
+    },
+    {
+      "filename": "img_00375.jpg",
+      "class": "license_plate",
+      "original": "000113.jpg"
+    },
+    {
+      "filename": "img_00376.jpg",
+      "class": "license_plate",
+      "original": "000114.jpg"
+    },
+    {
+      "filename": "img_00377.jpg",
+      "class": "license_plate",
+      "original": "000119.jpg"
+    },
+    {
+      "filename": "img_00378.jpg",
+      "class": "license_plate",
+      "original": "000121.jpg"
+    },
+    {
+      "filename": "img_00379.jpg",
+      "class": "license_plate",
+      "original": "000123.jpg"
+    },
+    {
+      "filename": "img_00380.jpg",
+      "class": "license_plate",
+      "original": "000124.jpg"
+    },
+    {
+      "filename": "img_00381.jpg",
+      "class": "license_plate",
+      "original": "000126.jpg"
+    },
+    {
+      "filename": "img_00382.jpg",
+      "class": "license_plate",
+      "original": "000127.jpg"
+    },
+    {
+      "filename": "img_00383.jpg",
+      "class": "license_plate",
+      "original": "000128.jpg"
+    },
+    {
+      "filename": "img_00384.jpg",
+      "class": "license_plate",
+      "original": "000129.jpg"
+    },
+    {
+      "filename": "img_00385.jpg",
+      "class": "license_plate",
+      "original": "000130.jpg"
+    },
+    {
+      "filename": "img_00386.jpg",
+      "class": "license_plate",
+      "original": "000131.jpg"
+    },
+    {
+      "filename": "img_00387.jpg",
+      "class": "license_plate",
+      "original": "000132.jpg"
+    },
+    {
+      "filename": "img_00388.jpg",
+      "class": "license_plate",
+      "original": "000133.jpg"
+    },
+    {
+      "filename": "img_00389.jpg",
+      "class": "license_plate",
+      "original": "000134.jpg"
+    },
+    {
+      "filename": "img_00390.jpg",
+      "class": "license_plate",
+      "original": "000135.jpg"
+    },
+    {
+      "filename": "img_00391.jpg",
+      "class": "license_plate",
+      "original": "000136.jpg"
+    },
+    {
+      "filename": "img_00392.jpg",
+      "class": "license_plate",
+      "original": "000138.jpg"
+    },
+    {
+      "filename": "img_00393.jpg",
+      "class": "license_plate",
+      "original": "000139.jpg"
+    },
+    {
+      "filename": "img_00394.jpg",
+      "class": "license_plate",
+      "original": "000141.jpg"
+    },
+    {
+      "filename": "img_00395.jpg",
+      "class": "license_plate",
+      "original": "000142.jpg"
+    },
+    {
+      "filename": "img_00396.jpg",
+      "class": "license_plate",
+      "original": "000143.jpg"
+    },
+    {
+      "filename": "img_00397.jpg",
+      "class": "license_plate",
+      "original": "000144.jpg"
+    },
+    {
+      "filename": "img_00398.jpg",
+      "class": "license_plate",
+      "original": "000152.jpg"
+    },
+    {
+      "filename": "img_00399.jpg",
+      "class": "license_plate",
+      "original": "000153.jpg"
+    },
+    {
+      "filename": "img_00400.jpg",
+      "class": "license_plate",
+      "original": "000157.jpg"
+    },
+    {
+      "filename": "img_00401.jpg",
+      "class": "license_plate",
+      "original": "000158.jpg"
+    },
+    {
+      "filename": "img_00402.jpg",
+      "class": "license_plate",
+      "original": "000159.jpg"
+    },
+    {
+      "filename": "img_00403.jpg",
+      "class": "license_plate",
+      "original": "000160.jpg"
+    },
+    {
+      "filename": "img_00404.jpg",
+      "class": "license_plate",
+      "original": "000161.jpg"
+    },
+    {
+      "filename": "img_00405.jpg",
+      "class": "license_plate",
+      "original": "000162.jpg"
+    },
+    {
+      "filename": "img_00406.jpg",
+      "class": "license_plate",
+      "original": "000167.jpg"
+    },
+    {
+      "filename": "img_00407.jpg",
+      "class": "license_plate",
+      "original": "000169.jpg"
+    },
+    {
+      "filename": "img_00408.jpg",
+      "class": "license_plate",
+      "original": "000173.jpg"
+    },
+    {
+      "filename": "img_00409.jpg",
+      "class": "license_plate",
+      "original": "000175.jpg"
+    },
+    {
+      "filename": "img_00410.jpg",
+      "class": "license_plate",
+      "original": "000176.jpg"
+    },
+    {
+      "filename": "img_00411.jpg",
+      "class": "license_plate",
+      "original": "000177.jpg"
+    },
+    {
+      "filename": "img_00412.jpg",
+      "class": "license_plate",
+      "original": "000178.jpg"
+    },
+    {
+      "filename": "img_00413.jpg",
+      "class": "license_plate",
+      "original": "000179.jpg"
+    },
+    {
+      "filename": "img_00414.jpg",
+      "class": "license_plate",
+      "original": "000180.jpg"
+    },
+    {
+      "filename": "img_00415.jpg",
+      "class": "license_plate",
+      "original": "000181.jpg"
+    },
+    {
+      "filename": "img_00416.jpg",
+      "class": "license_plate",
+      "original": "000182.jpg"
+    },
+    {
+      "filename": "img_00417.jpg",
+      "class": "license_plate",
+      "original": "000183.jpg"
+    },
+    {
+      "filename": "img_00418.jpg",
+      "class": "license_plate",
+      "original": "000185.jpg"
+    },
+    {
+      "filename": "img_00419.jpg",
+      "class": "license_plate",
+      "original": "000187.jpg"
+    },
+    {
+      "filename": "img_00420.jpg",
+      "class": "license_plate",
+      "original": "000188.jpg"
+    },
+    {
+      "filename": "img_00421.jpg",
+      "class": "license_plate",
+      "original": "000190.jpg"
+    },
+    {
+      "filename": "img_00422.jpg",
+      "class": "license_plate",
+      "original": "000191.jpg"
+    },
+    {
+      "filename": "img_00423.jpg",
+      "class": "license_plate",
+      "original": "000192.jpg"
+    },
+    {
+      "filename": "img_00424.jpg",
+      "class": "license_plate",
+      "original": "000193.jpg"
+    },
+    {
+      "filename": "img_00425.jpg",
+      "class": "license_plate",
+      "original": "000194.jpg"
+    },
+    {
+      "filename": "img_00426.jpg",
+      "class": "license_plate",
+      "original": "000199.jpg"
+    },
+    {
+      "filename": "img_00427.jpg",
+      "class": "police",
+      "original": "000001.jpg"
+    },
+    {
+      "filename": "img_00428.jpg",
+      "class": "police",
+      "original": "000003.jpg"
+    },
+    {
+      "filename": "img_00429.jpg",
+      "class": "police",
+      "original": "000004.jpg"
+    },
+    {
+      "filename": "img_00430.jpg",
+      "class": "police",
+      "original": "000006.jpg"
+    },
+    {
+      "filename": "img_00431.jpg",
+      "class": "police",
+      "original": "000007.jpg"
+    },
+    {
+      "filename": "img_00432.jpg",
+      "class": "police",
+      "original": "000008.jpg"
+    },
+    {
+      "filename": "img_00433.jpg",
+      "class": "police",
+      "original": "000011.jpg"
+    },
+    {
+      "filename": "img_00434.jpg",
+      "class": "police",
+      "original": "000012.jpg"
+    },
+    {
+      "filename": "img_00435.jpg",
+      "class": "police",
+      "original": "000014.jpg"
+    },
+    {
+      "filename": "img_00436.jpg",
+      "class": "police",
+      "original": "000016.jpg"
+    },
+    {
+      "filename": "img_00437.jpg",
+      "class": "police",
+      "original": "000017.jpg"
+    },
+    {
+      "filename": "img_00438.jpg",
+      "class": "police",
+      "original": "000018.jpg"
+    },
+    {
+      "filename": "img_00439.jpg",
+      "class": "police",
+      "original": "000019.jpg"
+    },
+    {
+      "filename": "img_00440.jpg",
+      "class": "police",
+      "original": "000020.jpg"
+    },
+    {
+      "filename": "img_00441.jpg",
+      "class": "police",
+      "original": "000021.jpg"
+    },
+    {
+      "filename": "img_00442.jpg",
+      "class": "police",
+      "original": "000022.jpg"
+    },
+    {
+      "filename": "img_00443.jpg",
+      "class": "police",
+      "original": "000023.jpg"
+    },
+    {
+      "filename": "img_00444.jpg",
+      "class": "police",
+      "original": "000024.jpg"
+    },
+    {
+      "filename": "img_00445.jpg",
+      "class": "police",
+      "original": "000026.jpg"
+    },
+    {
+      "filename": "img_00446.jpg",
+      "class": "police",
+      "original": "000027.jpg"
+    },
+    {
+      "filename": "img_00447.jpg",
+      "class": "police",
+      "original": "000028.jpg"
+    },
+    {
+      "filename": "img_00448.jpg",
+      "class": "police",
+      "original": "000029.jpg"
+    },
+    {
+      "filename": "img_00449.jpg",
+      "class": "police",
+      "original": "000031.jpg"
+    },
+    {
+      "filename": "img_00450.jpg",
+      "class": "police",
+      "original": "000032.jpg"
+    },
+    {
+      "filename": "img_00451.jpg",
+      "class": "police",
+      "original": "000033.jpg"
+    },
+    {
+      "filename": "img_00452.jpg",
+      "class": "police",
+      "original": "000034.jpg"
+    },
+    {
+      "filename": "img_00453.jpg",
+      "class": "police",
+      "original": "000035.jpg"
+    },
+    {
+      "filename": "img_00454.jpg",
+      "class": "police",
+      "original": "000036.jpg"
+    },
+    {
+      "filename": "img_00455.jpg",
+      "class": "police",
+      "original": "000037.jpg"
+    },
+    {
+      "filename": "img_00456.jpg",
+      "class": "police",
+      "original": "000038.jpg"
+    },
+    {
+      "filename": "img_00457.jpg",
+      "class": "police",
+      "original": "000039.jpg"
+    },
+    {
+      "filename": "img_00458.jpg",
+      "class": "police",
+      "original": "000040.jpg"
+    },
+    {
+      "filename": "img_00459.jpg",
+      "class": "police",
+      "original": "000041.jpg"
+    },
+    {
+      "filename": "img_00460.jpg",
+      "class": "police",
+      "original": "000042.jpg"
+    },
+    {
+      "filename": "img_00461.jpg",
+      "class": "police",
+      "original": "000043.jpg"
+    },
+    {
+      "filename": "img_00462.jpg",
+      "class": "police",
+      "original": "000044.jpg"
+    },
+    {
+      "filename": "img_00463.jpg",
+      "class": "police",
+      "original": "000045.jpg"
+    },
+    {
+      "filename": "img_00464.jpg",
+      "class": "police",
+      "original": "000046.jpg"
+    },
+    {
+      "filename": "img_00465.jpg",
+      "class": "police",
+      "original": "000047.jpg"
+    },
+    {
+      "filename": "img_00466.jpg",
+      "class": "police",
+      "original": "000049.jpg"
+    },
+    {
+      "filename": "img_00467.jpg",
+      "class": "police",
+      "original": "000050.jpg"
+    },
+    {
+      "filename": "img_00468.jpg",
+      "class": "police",
+      "original": "000051.jpg"
+    },
+    {
+      "filename": "img_00469.jpg",
+      "class": "police",
+      "original": "000052.jpg"
+    },
+    {
+      "filename": "img_00470.jpg",
+      "class": "police",
+      "original": "000054.jpg"
+    },
+    {
+      "filename": "img_00471.jpg",
+      "class": "police",
+      "original": "000056.jpg"
+    },
+    {
+      "filename": "img_00472.jpg",
+      "class": "police",
+      "original": "000057.jpg"
+    },
+    {
+      "filename": "img_00473.jpg",
+      "class": "police",
+      "original": "000058.jpg"
+    },
+    {
+      "filename": "img_00474.jpg",
+      "class": "police",
+      "original": "000060.jpg"
+    },
+    {
+      "filename": "img_00475.jpg",
+      "class": "police",
+      "original": "000062.jpg"
+    },
+    {
+      "filename": "img_00476.jpg",
+      "class": "police",
+      "original": "000064.jpg"
+    },
+    {
+      "filename": "img_00477.jpg",
+      "class": "police",
+      "original": "000065.jpg"
+    },
+    {
+      "filename": "img_00478.jpg",
+      "class": "police",
+      "original": "000066.jpg"
+    },
+    {
+      "filename": "img_00479.jpg",
+      "class": "police",
+      "original": "000067.jpg"
+    },
+    {
+      "filename": "img_00480.jpg",
+      "class": "police",
+      "original": "000068.jpg"
+    },
+    {
+      "filename": "img_00481.jpg",
+      "class": "police",
+      "original": "000070.jpg"
+    },
+    {
+      "filename": "img_00482.jpg",
+      "class": "police",
+      "original": "000072.jpg"
+    },
+    {
+      "filename": "img_00483.jpg",
+      "class": "police",
+      "original": "000073.jpg"
+    },
+    {
+      "filename": "img_00484.jpg",
+      "class": "police",
+      "original": "000075.jpg"
+    },
+    {
+      "filename": "img_00485.jpg",
+      "class": "police",
+      "original": "000076.jpg"
+    },
+    {
+      "filename": "img_00486.jpg",
+      "class": "police",
+      "original": "000077.jpg"
+    },
+    {
+      "filename": "img_00487.jpg",
+      "class": "police",
+      "original": "000078.jpg"
+    },
+    {
+      "filename": "img_00488.jpg",
+      "class": "police",
+      "original": "000079.jpg"
+    },
+    {
+      "filename": "img_00489.jpg",
+      "class": "police",
+      "original": "000080.jpg"
+    },
+    {
+      "filename": "img_00490.jpg",
+      "class": "police",
+      "original": "000081.jpg"
+    },
+    {
+      "filename": "img_00491.jpg",
+      "class": "police",
+      "original": "000082.jpg"
+    },
+    {
+      "filename": "img_00492.jpg",
+      "class": "police",
+      "original": "000083.jpg"
+    },
+    {
+      "filename": "img_00493.jpg",
+      "class": "police",
+      "original": "000084.jpg"
+    },
+    {
+      "filename": "img_00494.jpg",
+      "class": "police",
+      "original": "000085.jpg"
+    },
+    {
+      "filename": "img_00495.jpg",
+      "class": "police",
+      "original": "000086.jpg"
+    },
+    {
+      "filename": "img_00496.jpg",
+      "class": "police",
+      "original": "000088.jpg"
+    },
+    {
+      "filename": "img_00497.jpg",
+      "class": "police",
+      "original": "000089.jpg"
+    },
+    {
+      "filename": "img_00498.jpg",
+      "class": "police",
+      "original": "000090.jpg"
+    },
+    {
+      "filename": "img_00499.jpg",
+      "class": "police",
+      "original": "000091.jpg"
+    },
+    {
+      "filename": "img_00500.jpg",
+      "class": "police",
+      "original": "000092.jpg"
+    },
+    {
+      "filename": "img_00501.jpg",
+      "class": "police",
+      "original": "000093.jpg"
+    },
+    {
+      "filename": "img_00502.jpg",
+      "class": "police",
+      "original": "000094.jpg"
+    },
+    {
+      "filename": "img_00503.jpg",
+      "class": "police",
+      "original": "000095.jpg"
+    },
+    {
+      "filename": "img_00504.jpg",
+      "class": "police",
+      "original": "000097.jpg"
+    },
+    {
+      "filename": "img_00505.jpg",
+      "class": "police",
+      "original": "000098.jpg"
+    },
+    {
+      "filename": "img_00506.jpg",
+      "class": "police",
+      "original": "000100.jpg"
+    },
+    {
+      "filename": "img_00507.jpg",
+      "class": "police",
+      "original": "000101.jpg"
+    },
+    {
+      "filename": "img_00508.jpg",
+      "class": "police",
+      "original": "000102.jpg"
+    },
+    {
+      "filename": "img_00509.jpg",
+      "class": "police",
+      "original": "000103.jpg"
+    },
+    {
+      "filename": "img_00510.jpg",
+      "class": "police",
+      "original": "000105.jpg"
+    },
+    {
+      "filename": "img_00511.jpg",
+      "class": "police",
+      "original": "000107.jpg"
+    },
+    {
+      "filename": "img_00512.jpg",
+      "class": "police",
+      "original": "000108.jpg"
+    },
+    {
+      "filename": "img_00513.jpg",
+      "class": "police",
+      "original": "000109.jpg"
+    },
+    {
+      "filename": "img_00514.jpg",
+      "class": "police",
+      "original": "000110.jpg"
+    },
+    {
+      "filename": "img_00515.jpg",
+      "class": "police",
+      "original": "000111.jpg"
+    },
+    {
+      "filename": "img_00516.jpg",
+      "class": "police",
+      "original": "000112.jpg"
+    },
+    {
+      "filename": "img_00517.jpg",
+      "class": "police",
+      "original": "000113.jpg"
+    },
+    {
+      "filename": "img_00518.jpg",
+      "class": "police",
+      "original": "000114.jpg"
+    },
+    {
+      "filename": "img_00519.jpg",
+      "class": "police",
+      "original": "000115.jpg"
+    },
+    {
+      "filename": "img_00520.jpg",
+      "class": "police",
+      "original": "000116.jpg"
+    },
+    {
+      "filename": "img_00521.jpg",
+      "class": "police",
+      "original": "000117.jpg"
+    },
+    {
+      "filename": "img_00522.jpg",
+      "class": "police",
+      "original": "000118.jpg"
+    },
+    {
+      "filename": "img_00523.jpg",
+      "class": "police",
+      "original": "000119.jpg"
+    },
+    {
+      "filename": "img_00524.jpg",
+      "class": "police",
+      "original": "000120.jpg"
+    },
+    {
+      "filename": "img_00525.jpg",
+      "class": "police",
+      "original": "000121.jpg"
+    },
+    {
+      "filename": "img_00526.jpg",
+      "class": "police",
+      "original": "000122.jpg"
+    },
+    {
+      "filename": "img_00527.jpg",
+      "class": "police",
+      "original": "000123.jpg"
+    },
+    {
+      "filename": "img_00528.jpg",
+      "class": "police",
+      "original": "000124.jpg"
+    },
+    {
+      "filename": "img_00529.jpg",
+      "class": "police",
+      "original": "000125.jpg"
+    },
+    {
+      "filename": "img_00530.jpg",
+      "class": "police",
+      "original": "000126.jpg"
+    }
+  ]
+}

@@ -31,7 +31,7 @@ EPOCHS      = 100
 IMAGE_SIZE  = 640
 BATCH_SIZE  = 16   # Turunkan ke 8 jika RAM GPU tidak cukup
 WORKERS     = 4    # Jumlah dataloader workers (0 = main thread, aman di Windows)
-DEVICE      = 0    # 0 = GPU pertama; "cpu" jika tidak ada GPU
+DEVICE      = "cpu"    # 0 = GPU pertama; "cpu" jika tidak ada GPU
 
 # ─────────────────────────────────────────────────────────────────────────────
 

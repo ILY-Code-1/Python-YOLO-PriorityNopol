@@ -35,9 +35,11 @@ model/last.pt
 # ─── YOLO Training Output ────────────────────────────────────────────────────
 runs/
 
+dataset/_raw
 # ─── Dataset (opsional: comment jika dataset kecil dan ingin di-commit) ──────
 dataset/images/train/*
 dataset/images/val/*
+dataset/images/*.jpg
 dataset/labels/train/*
 dataset/labels/val/*
 # Kecualikan .gitkeep agar struktur folder tetap ada di repo

@@ -1,0 +1,61 @@
+{
+  "project": "Deteksi Otomatis Kendaraan Prioritas - YOLOv8n",
+  "annotation_method": "Auto-annotation via YOLOv8n pretrained (COCO) + filename-class mapping",
+  "generated_at": "2026-03-26 17:40",
+  "total_images": 530,
+  "total_train": 427,
+  "total_val": 103,
+  "split_ratio": "80.6% / 19.4%",
+  "total_labeled": 497,
+  "total_objects": 497,
+  "images_without_objects": 33,
+  "class_distribution": {
+    "total": {
+      "ambulance": 117,
+      "police": 91,
+      "fire_truck": 136,
+      "license_plate": 153
+    },
+    "train": {
+      "ambulance": 96,
+      "police": 72,
+      "fire_truck": 111,
+      "license_plate": 123
+    },
+    "val": {
+      "ambulance": 21,
+      "police": 19,
+      "fire_truck": 25,
+      "license_plate": 30
+    }
+  },
+  "license_plate_annotation_method": {
+    "from_vehicle_bbox": 56,
+    "from_contour_detection": 45,
+    "from_center_fallback": 52,
+    "note": "license_plate bboxes diperoleh dengan 3 metode: (1) estimasi dari bounding box kendaraan terdeteksi YOLO, (2) deteksi kontur persegi panjang, (3) fallback bbox tengah untuk gambar close-up plat."
+  },
+  "annotation_quality": {
+    "bad_format_lines": 0,
+    "out_of_range_bboxes": 0,
+    "empty_labels_train": 25,
+    "empty_labels_val": 8,
+    "labeled_coverage": "93.8%"
+  },
+  "validation_checks": {
+    "total_images_gte_500": true,
+    "train_val_split_ok": true,
+    "no_missing_label_files": true,
+    "no_bad_format": true,
+    "no_out_of_range_bbox": true,
+    "labeled_coverage_gte_80": true
+  },
+  "ready_for_training": true,
+  "annotation_warning": "Anotasi dihasilkan secara OTOMATIS menggunakan YOLOv8 pretrained COCO. Akurasi bounding box mungkin tidak sempurna, terutama untuk: (1) Kendaraan yang tidak terdeteksi model COCO (33 gambar kosong = 6.2%), (2) Bounding box license_plate yang menggunakan heuristik posisi. Untuk training terbaik, disarankan melakukan review dan koreksi manual menggunakan LabelImg pada label yang dihasilkan.",
+  "next_steps": [
+    "1. Review label dengan LabelImg (opsional, untuk koreksi manual)",
+    "2. Jalankan training: python scripts/train.py",
+    "3. Evaluasi mAP setelah training selesai",
+    "4. Tambah data jika mAP < 0.7 untuk kelas yang lemah"
+  ]
+}

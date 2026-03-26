@@ -1,27 +1,14 @@
-# dataset.yaml - Konfigurasi dataset YOLOv8
-# Format: YOLO Darknet (normalized coordinates)
-#
-# Struktur folder yang diharapkan:
-#   dataset/
-#   ├── images/
-#   │   ├── train/    ← gambar training (.jpg/.png)
-#   │   └── val/      ← gambar validasi (.jpg/.png)
-#   ├── labels/
-#   │   ├── train/    ← label YOLO (.txt, satu file per gambar)
-#   │   └── val/
-#   └── dataset.yaml
+# dataset.yaml - YOLOv8 Dataset Configuration
+# Deteksi Otomatis Kendaraan Prioritas
 
-# Path root dataset (relatif terhadap lokasi script training dijalankan)
 path: dataset
-
-# Sub-path relatif terhadap 'path'
 train: images/train
-val: images/val
+val:   images/val
 
-# Jumlah kelas
+# Number of classes
 nc: 4
 
-# Nama kelas (indeks = class_id dalam file label)
+# Class names (index must match class_id in label files)
 names:
   0: ambulance
   1: police

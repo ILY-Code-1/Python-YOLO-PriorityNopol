@@ -1,0 +1,4 @@
+ambulance
+police
+fire_truck
+license_plate
