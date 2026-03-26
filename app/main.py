@@ -16,6 +16,7 @@ app = FastAPI(
         "Digunakan untuk keperluan penelitian."
     ),
     version="1.0.0",
+    root_path="/py-yolo-nopol"
 )
 
 # Konfigurasi CORS agar bisa diakses dari frontend / Postman / klien lain
