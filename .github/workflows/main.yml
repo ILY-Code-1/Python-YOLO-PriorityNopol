@@ -190,7 +190,7 @@ jobs:
               --name    "$DOCKER_CONTAINER" \
               --restart always \
               -p        "$DOCKER_PORT:2200" \
-              --env-file /home/$USER/apps/priority-vehicle/.env \
+              --env-file /var/www/html/yolo_nopol/.env \
               -v        /home/$USER/apps/priority-vehicle/model:/app/model:ro \
               "$DOCKER_IMAGE:latest"
 
