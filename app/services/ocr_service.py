@@ -31,7 +31,7 @@ class OCRService:
 
         print(f"[OCRService] Inisialisasi EasyOCR, bahasa: {languages}")
         # gpu=False → kompatibel semua environment. Set True jika ada CUDA.
-        self.reader = easyocr.Reader(languages, gpu=False)
+        self.reader = easyocr.Reader(languages, gpu=False, model_storage_directory="/tmp/easyocr")
 
     # ─── Internal: preprocess gambar ────────────────────────────────────────
 
