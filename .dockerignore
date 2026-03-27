@@ -1,0 +1,51 @@
+# ─── Excludes untuk Docker build context ─────────────────────────────────────
+# File di sini TIDAK akan disalin ke dalam Docker image
+# Mengurangi ukuran context → build lebih cepat
+
+# Virtual environment (tidak perlu, sudah diinstall via pip di Dockerfile)
+venv/
+env/
+.venv/
+
+# Git
+.git/
+.gitignore
+
+# Environment & secrets
+.env
+.env.*
+*.key
+*.pem
+
+# Model (di-mount via Docker volume saat runtime, bukan di-bake ke image)
+# model/best.pt
+# model/last.pt
+# *.pt
+
+# Dataset & training output (tidak dibutuhkan di runtime API)
+dataset/images/
+dataset/labels/
+runs/
+
+# CI/CD files
+.github/
+
+# Dokumentasi
+*.md
+readme_tutorial.md
+README_CICD.md
+README_ENV.md
+
+# Cache & temp
+__pycache__/
+*.pyc
+*.pyo
+*.log
+.pytest_cache/
+.mypy_cache/
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
