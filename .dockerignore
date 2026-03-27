@@ -18,9 +18,9 @@ env/
 *.pem
 
 # Model (di-mount via Docker volume saat runtime, bukan di-bake ke image)
-# model/best.pt
-# model/last.pt
-# *.pt
+model/best.pt
+model/last.pt
+*.pt
 
 # Dataset & training output (tidak dibutuhkan di runtime API)
 dataset/images/
