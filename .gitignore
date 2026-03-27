@@ -26,9 +26,9 @@ ENV/
 *.pem
 
 # ─── Model Files (ukuran besar, simpan di luar repo) ─────────────────────────
-model/best.pt
-model/last.pt
-*.pt
+# model/best.pt
+# model/last.pt
+# *.pt
 *.onnx
 *.tflite
 
