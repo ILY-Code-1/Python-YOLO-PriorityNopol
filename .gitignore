@@ -42,6 +42,7 @@ dataset/images/val/*
 dataset/images/*.jpg
 dataset/labels/train/*
 dataset/labels/val/*
+dataset/labels/*.cache
 # Kecualikan .gitkeep agar struktur folder tetap ada di repo
 !dataset/images/train/.gitkeep
 !dataset/images/val/.gitkeep

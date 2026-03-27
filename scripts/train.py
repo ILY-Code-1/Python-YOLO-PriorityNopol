@@ -54,6 +54,11 @@ def train():
     # Load model pretrained YOLOv8n
     print(f"\n[1/3] Loading pretrained model: {PRETRAINED_MODEL}")
     model = YOLO(PRETRAINED_MODEL)
+    
+    # resume model with uncomment this
+    # model = YOLO("runs/train/priority_vehicle_detection/weights/last.pt")
+    # or this
+    # model = YOLO(r"C:\Users\YusnarSetiyadi\Me\technology\ilycode\Python-YOLO-PriorityNopol\runs\detect\runs\train\priority_vehicle_detection\weights\last.pt")
 
     # Mulai training
     print(f"[2/3] Memulai training selama {EPOCHS} epoch...")
@@ -73,6 +78,7 @@ def train():
         project=PROJECT_DIR,
         name=EXPERIMENT_NAME,
         exist_ok=True,           # Overwrite jika nama experiment sama
+        # resume=True,             # for resuming train model
         patience=20,             # Early stopping: berhenti jika 20 epoch tidak ada improvement
         save=True,               # Simpan checkpoint
         save_period=10,          # Simpan checkpoint setiap 10 epoch
