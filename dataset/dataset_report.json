@@ -1,53 +1,117 @@
 {
   "project": "Deteksi Otomatis Kendaraan Prioritas - YOLOv8n",
-  "generated_at": "2026-03-26 16:27",
-  "total_images": 530,
-  "total_train": 427,
-  "total_val": 103,
-  "split_ratio": "80.6% / 19.4%",
+  "generated_at": "2026-03-28 15:29",
+  "pipeline_stages": [
+    "Stage 1: Image collection via BingImageCrawler (4 classes, 760 clean images)",
+    "Stage 2: Multi-stage auto-annotation (YOLOv8n + EasyOCR + contour fallback)",
+    "Stage 3: QC filtering (blur/dark/oversized bbox removal)",
+    "Stage 4: Data augmentation (brightness, contrast, blur, noise, rotation, perspective)",
+    "Stage 5: Pool merge (clean + augmented = 2166 images)",
+    "Stage 6: Stratified 80/20 train/val split"
+  ],
+  "dataset_summary": {
+    "total_images": 2166,
+    "total_train": 1734,
+    "total_val": 432,
+    "split_ratio": "80.1% / 19.9%",
+    "pool_size": 2166,
+    "augmented_added": 876
+  },
   "class_distribution": {
     "total": {
-      "ambulance": 124,
-      "police": 104,
-      "fire_truck": 149,
-      "license_plate": 153
+      "ambulance": 445,
+      "police": 478,
+      "fire_truck": 346,
+      "license_plate": 793
     },
     "train": {
-      "ambulance": 100,
-      "police": 84,
-      "fire_truck": 120,
-      "license_plate": 123
+      "ambulance": 357,
+      "police": 383,
+      "fire_truck": 279,
+      "license_plate": 614
     },
     "val": {
-      "ambulance": 24,
-      "police": 20,
-      "fire_truck": 29,
-      "license_plate": 30
+      "ambulance": 88,
+      "police": 95,
+      "fire_truck": 67,
+      "license_plate": 179
+    },
+    "targets": {
+      "ambulance": 300,
+      "police": 300,
+      "fire_truck": 300,
+      "license_plate": 600
+    },
+    "targets_met": {
+      "ambulance": true,
+      "police": true,
+      "fire_truck": true,
+      "license_plate": true
     }
   },
-  "annotation_status": {
-    "has_annotations": false,
-    "empty_label_files": 530,
-    "annotated_label_files": 0,
-    "missing_annotations_count": 530,
-    "annotation_note": "Semua label adalah placeholder kosong (.txt empty). Anotasi manual wajib dilakukan sebelum training. Gunakan LabelImg, CVAT, atau Roboflow."
+  "bbox_distribution": {
+    "ambulance": {
+      "count": 445,
+      "avg_width": 0.6824,
+      "avg_height": 0.6352,
+      "min_width": 0.1217,
+      "max_width": 1.0
+    },
+    "police": {
+      "count": 478,
+      "avg_width": 0.7288,
+      "avg_height": 0.581,
+      "min_width": 0.0486,
+      "max_width": 1.0
+    },
+    "fire_truck": {
+      "count": 346,
+      "avg_width": 0.7171,
+      "avg_height": 0.6622,
+      "min_width": 0.0744,
+      "max_width": 1.0
+    },
+    "license_plate": {
+      "count": 793,
+      "avg_width": 0.2697,
+      "avg_height": 0.1174,
+      "min_width": 0.0198,
+      "max_width": 0.9907
+    }
   },
-  "data_quality": {
-    "corrupted_images_removed": 0,
-    "duplicate_images_removed": 0,
-    "unreadable_images": []
+  "augmentation_stats": {
+    "total_augmented": 876,
+    "license_plate": 349,
+    "police": 258,
+    "fire_truck": 105,
+    "ambulance": 164
+  },
+  "annotation_status": {
+    "method": "Auto-annotation: YOLOv8n (vehicle detection) + EasyOCR multi-stage (license plate) + contour fallback",
+    "empty_label_files_train": 195,
+    "empty_label_files_val": 45,
+    "bad_format_train": 0,
+    "bad_format_val": 0,
+    "out_of_range_train": 0,
+    "out_of_range_val": 0
   },
   "validation_checks": {
-    "total_images_gte_500": true,
+    "total_images_gte_2000": true,
     "train_val_split_ok": true,
-    "no_missing_label_files": true,
-    "no_corrupt_images": true,
-    "label_format_valid": true,
-    "bbox_values_in_range": true
+    "empty_labels_note": "240 empty label files (valid background/hard-negative samples for YOLO)",
+    "no_bad_format": true,
+    "no_out_of_range": true,
+    "all_class_targets_met": true
   },
-  "ready_for_training": false,
-  "ready_for_annotation": true,
-  "blocking_reason": "Label files are empty placeholders — manual annotation required before training.",
+  "retrain_config": {
+    "model": "yolov8n.pt",
+    "epochs": 100,
+    "imgsz": 640,
+    "batch": 16,
+    "patience": 20,
+    "command": "python scripts/train.py",
+    "dataset_yaml": "dataset/dataset.yaml"
+  },
   "label_format": "YOLO: class_id x_center y_center width height (all normalized 0-1)",
   "class_mapping": {
     "ambulance": 0,
@@ -55,16 +119,5 @@
     "fire_truck": 2,
     "license_plate": 3
   },
-  "next_steps": [
-    "1. Annotate images using LabelImg: pip install labelImg && labelImg",
-    "2. OR upload to Roboflow for collaborative annotation",
-    "3. OR download pre-labeled dataset from Roboflow Universe (recommended)",
-    "4. After annotation, run: python scripts/train.py"
-  ],
-  "annotation_guide": {
-    "labelImg_install": "pip install labelImg",
-    "labelImg_run": "labelImg dataset/images/train dataset/labels/train",
-    "output_format": "YOLO (set in LabelImg settings)",
-    "class_list_file": "Create predefined_classes.txt with: ambulance, police, fire_truck, license_plate"
-  }
+  "ready_for_training": true
 }

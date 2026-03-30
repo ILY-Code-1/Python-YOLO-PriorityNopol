@@ -29,9 +29,16 @@ OUTPUT_MODEL_DIR = Path("model")
 # Hyperparameter training
 EPOCHS      = 100
 IMAGE_SIZE  = 640
-BATCH_SIZE  = 16   # Turunkan ke 8 jika RAM GPU tidak cukup
-WORKERS     = 4    # Jumlah dataloader workers (0 = main thread, aman di Windows)
-DEVICE      = "cpu"    # 0 = GPU pertama; "cpu" jika tidak ada GPU
+BATCH_SIZE  = 16
+WORKERS     = 4
+DEVICE      = "cpu"
+
+# New hyperparam training (from cgpt)
+# EPOCHS      = 120
+# IMAGE_SIZE  = 960
+# BATCH_SIZE  = 8
+# WORKERS     = 2
+# DEVICE      = "cpu"
 
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -53,12 +60,12 @@ def train():
 
     # Load model pretrained YOLOv8n
     print(f"\n[1/3] Loading pretrained model: {PRETRAINED_MODEL}")
-    model = YOLO(PRETRAINED_MODEL)
+    # model = YOLO(PRETRAINED_MODEL)
     
     # resume model with uncomment this
     # model = YOLO("runs/train/priority_vehicle_detection/weights/last.pt")
     # or this
-    # model = YOLO(r"C:\Users\YusnarSetiyadi\Me\technology\ilycode\Python-YOLO-PriorityNopol\runs\detect\runs\train\priority_vehicle_detection\weights\last.pt")
+    model = YOLO(r"C:\Users\YusnarSetiyadi\Me\technology\ilycode\Python-YOLO-PriorityNopol\runs\detect\runs\train\priority_vehicle_detection\weights\last.pt")
 
     # Mulai training
     print(f"[2/3] Memulai training selama {EPOCHS} epoch...")
@@ -78,13 +85,14 @@ def train():
         project=PROJECT_DIR,
         name=EXPERIMENT_NAME,
         exist_ok=True,           # Overwrite jika nama experiment sama
-        # resume=True,             # for resuming train model
-        patience=20,             # Early stopping: berhenti jika 20 epoch tidak ada improvement
+        resume=True,             # for resuming train model
+        patience=20,             # Early stopping: berhenti jika 25 epoch tidak ada improvement
         save=True,               # Simpan checkpoint
         save_period=10,          # Simpan checkpoint setiap 10 epoch
         val=True,                # Validasi setiap epoch
         plots=True,              # Simpan grafik training
         verbose=True,
+        # multi_scale=True,        # for tiny object (nopol)
     )
 
     # Copy best.pt ke model/best.pt
