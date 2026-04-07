@@ -27,18 +27,18 @@ EXPERIMENT_NAME  = "priority_vehicle_detection"
 OUTPUT_MODEL_DIR = Path("model")
 
 # Hyperparameter training
-EPOCHS      = 100
-IMAGE_SIZE  = 640
-BATCH_SIZE  = 16
-WORKERS     = 4
-DEVICE      = "cpu"
-
-# New hyperparam training (from cgpt)
-# EPOCHS      = 120
-# IMAGE_SIZE  = 960
-# BATCH_SIZE  = 8
-# WORKERS     = 2
+# EPOCHS      = 100
+# IMAGE_SIZE  = 640
+# BATCH_SIZE  = 16
+# WORKERS     = 4
 # DEVICE      = "cpu"
+
+# New hyperparam training (from cgpt) - BEING TRAINED
+EPOCHS      = 120
+IMAGE_SIZE  = 960
+BATCH_SIZE  = 8
+WORKERS     = 2
+DEVICE      = "cpu"
 
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -60,12 +60,12 @@ def train():
 
     # Load model pretrained YOLOv8n
     print(f"\n[1/3] Loading pretrained model: {PRETRAINED_MODEL}")
-    # model = YOLO(PRETRAINED_MODEL)
+    model = YOLO(PRETRAINED_MODEL)
     
     # resume model with uncomment this
     # model = YOLO("runs/train/priority_vehicle_detection/weights/last.pt")
     # or this
-    model = YOLO(r"C:\Users\YusnarSetiyadi\Me\technology\ilycode\Python-YOLO-PriorityNopol\runs\detect\runs\train\priority_vehicle_detection\weights\last.pt")
+    # model = YOLO(r"C:\Users\YusnarSetiyadi\Me\technology\ilycode\Python-YOLO-PriorityNopol\runs\detect\runs\train\priority_vehicle_detection\weights\last.pt")
 
     # Mulai training
     print(f"[2/3] Memulai training selama {EPOCHS} epoch...")
@@ -85,14 +85,31 @@ def train():
         project=PROJECT_DIR,
         name=EXPERIMENT_NAME,
         exist_ok=True,           # Overwrite jika nama experiment sama
-        resume=True,             # for resuming train model
-        patience=20,             # Early stopping: berhenti jika 25 epoch tidak ada improvement
-        save=True,               # Simpan checkpoint
+
         save_period=10,          # Simpan checkpoint setiap 10 epoch
+        resume=False,             # for resuming train model
+        multi_scale=True,        # for tiny object (nopol)
+
+        # 🔥 augment penting
+        mosaic=1.0,
+        mixup=0.15,
+
+        # 🔥 warna
+        hsv_h=0.015,
+        hsv_s=0.7,
+        hsv_v=0.4,
+
+        # 🔥 tambahan biar robust
+        degrees=5,
+        scale=0.5,
+        shear=2,
+
+        # ⚠️ CPU friendly
+        patience=25,             # Early stopping: berhenti jika 25 epoch tidak ada improvement
+        save=True,               # Simpan checkpoint
         val=True,                # Validasi setiap epoch
         plots=True,              # Simpan grafik training
         verbose=True,
-        # multi_scale=True,        # for tiny object (nopol)
     )
 
     # Copy best.pt ke model/best.pt

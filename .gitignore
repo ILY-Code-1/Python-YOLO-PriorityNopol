@@ -34,9 +34,8 @@ model/last.pt
 
 # ─── YOLO Training Output ────────────────────────────────────────────────────
 runs/
-runs_1/
+runs_*/
 
-dataset/_raw
 dataset/_*
 dataset/visualizations
 # ─── Dataset (opsional: comment jika dataset kecil dan ingin di-commit) ──────
