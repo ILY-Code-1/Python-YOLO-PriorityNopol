@@ -33,7 +33,7 @@ OUTPUT_MODEL_DIR = Path("model")
 # WORKERS     = 4
 # DEVICE      = "cpu"
 
-# New hyperparam training (from cgpt) - BEING TRAINED
+# New hyperparam training (from cgpt) - BEING TRAINED 
 EPOCHS      = 120
 IMAGE_SIZE  = 960
 BATCH_SIZE  = 8
