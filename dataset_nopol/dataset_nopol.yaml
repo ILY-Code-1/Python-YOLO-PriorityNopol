@@ -1,0 +1,8 @@
+# dataset_nopol.yaml — License plate detection (Stage 2)
+path: C:/Users/YusnarSetiyadi/Me/technology/ilycode/Python-YOLO-PriorityNopol/dataset_nopol
+train: images/train
+val:   images/val
+
+nc: 1
+names:
+  0: license_plate

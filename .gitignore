@@ -37,7 +37,11 @@ runs/
 runs_*/
 
 dataset/_*
+dataset_aug/_*
 dataset/visualizations
+dataset_nopol/_*
+dataset_nopol_aug/_*
+dataset_nopol/visualizations
 # ─── Dataset (opsional: comment jika dataset kecil dan ingin di-commit) ──────
 dataset/images/train/*
 dataset/images/val/*
@@ -45,6 +49,18 @@ dataset/images/*.jpg
 dataset/labels/train/*
 dataset/labels/val/*
 dataset/labels/*.cache
+dataset_nopol/images/train/*
+dataset_nopol/images/val/*
+dataset_nopol/images/*.jpg
+dataset_nopol/labels/train/*
+dataset_nopol/labels/val/*
+dataset_nopol/labels/*.cache
+dataset_aug/images/train/*
+dataset_aug/images/val/*
+dataset_aug/images/*.jpg
+dataset_aug/labels/train/*
+dataset_aug/labels/val/*
+dataset_aug/labels/*.cache
 # Kecualikan .gitkeep agar struktur folder tetap ada di repo
 !dataset/images/train/.gitkeep
 !dataset/images/val/.gitkeep

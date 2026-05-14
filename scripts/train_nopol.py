@@ -81,8 +81,8 @@ PROJECT_DIR      = "runs/train"
 EXPERIMENT_NAME  = "nopol_detection"
 OUTPUT_MODEL_DIR = Path("model")
 
-RESUME = False
-LAST_PT = Path(PROJECT_DIR) / EXPERIMENT_NAME / "weights" / "last.pt"
+RESUME = True
+LAST_PT = Path("runs/detect") / Path(PROJECT_DIR) / EXPERIMENT_NAME / "weights" / "last.pt"
 PRETRAINED_MODEL = "yolov8n.pt"
 
 # ─── Hyperparameter ───────────────────────────────────────────────────────────

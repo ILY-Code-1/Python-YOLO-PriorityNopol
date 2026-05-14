@@ -1,0 +1,257 @@
+{
+  "generated_at": "2026-04-18 14:53",
+  "splits": [
+    {
+      "split": "train",
+      "total_images": 1734,
+      "no_label_count": 0,
+      "label_no_img": 0,
+      "empty_labels": 195,
+      "class_boxes": {
+        "ambulance": 357,
+        "police": 383,
+        "fire_truck": 279,
+        "license_plate": 614
+      },
+      "class_images": {
+        "ambulance": 357,
+        "police": 383,
+        "fire_truck": 279,
+        "license_plate": 520
+      },
+      "co_occur": {
+        "vehicle_only": 1019,
+        "lp_only": 520,
+        "vehicle_and_lp": 0,
+        "empty": 195
+      },
+      "resolution": {
+        "w_min": 200,
+        "w_max": 4000,
+        "w_avg": 984,
+        "w_med": 983,
+        "h_min": 150,
+        "h_max": 4096,
+        "h_avg": 726,
+        "h_med": 719
+      },
+      "tiny_boxes": {
+        "count": 14,
+        "samples": [
+          {
+            "file": "license_plate_0054",
+            "class": "license_plate",
+            "px_w": 38.9,
+            "px_h": 9.2
+          },
+          {
+            "file": "license_plate_0066",
+            "class": "license_plate",
+            "px_w": 25.0,
+            "px_h": 4.0
+          },
+          {
+            "file": "license_plate_0168",
+            "class": "license_plate",
+            "px_w": 25.0,
+            "px_h": 4.0
+          },
+          {
+            "file": "license_plate_0267",
+            "class": "license_plate",
+            "px_w": 31.0,
+            "px_h": 5.0
+          },
+          {
+            "file": "license_plate_0313",
+            "class": "license_plate",
+            "px_w": 31.0,
+            "px_h": 5.0
+          }
+        ]
+      },
+      "huge_boxes": {
+        "count": 177,
+        "by_class": {
+          "ambulance": 75,
+          "fire_truck": 49,
+          "police": 53
+        },
+        "samples": [
+          {
+            "file": "ambulance_0003",
+            "class": "ambulance",
+            "norm_w": 0.905,
+            "norm_h": 0.804
+          },
+          {
+            "file": "ambulance_0005",
+            "class": "ambulance",
+            "norm_w": 0.974,
+            "norm_h": 0.948
+          },
+          {
+            "file": "ambulance_0009",
+            "class": "ambulance",
+            "norm_w": 0.884,
+            "norm_h": 0.808
+          },
+          {
+            "file": "ambulance_0010",
+            "class": "ambulance",
+            "norm_w": 0.999,
+            "norm_h": 0.838
+          },
+          {
+            "file": "ambulance_0012",
+            "class": "ambulance",
+            "norm_w": 0.812,
+            "norm_h": 0.878
+          }
+        ]
+      },
+      "bad_class": {
+        "count": 0,
+        "samples": []
+      },
+      "lp_quality": {
+        "total_boxes": 614,
+        "too_small": 189,
+        "too_small_pct": 30.8,
+        "px_w_min": 17.6,
+        "px_w_max": 2611.2,
+        "px_w_avg": 252.2,
+        "px_w_med": 181.3,
+        "px_h_min": 4.0,
+        "px_h_max": 767.8,
+        "px_h_avg": 83.2,
+        "px_h_med": 54.5,
+        "norm_w_avg": 0.2745,
+        "norm_h_avg": 0.1221
+      }
+    },
+    {
+      "split": "val",
+      "total_images": 432,
+      "no_label_count": 0,
+      "label_no_img": 0,
+      "empty_labels": 45,
+      "class_boxes": {
+        "ambulance": 88,
+        "police": 95,
+        "fire_truck": 67,
+        "license_plate": 179
+      },
+      "class_images": {
+        "ambulance": 88,
+        "police": 95,
+        "fire_truck": 67,
+        "license_plate": 137
+      },
+      "co_occur": {
+        "vehicle_only": 250,
+        "lp_only": 137,
+        "vehicle_and_lp": 0,
+        "empty": 45
+      },
+      "resolution": {
+        "w_min": 200,
+        "w_max": 2000,
+        "w_avg": 949,
+        "w_med": 902,
+        "h_min": 156,
+        "h_max": 1999,
+        "h_avg": 698,
+        "h_med": 667
+      },
+      "tiny_boxes": {
+        "count": 4,
+        "samples": [
+          {
+            "file": "license_plate_val_0017",
+            "class": "license_plate",
+            "px_w": 15.1,
+            "px_h": 5.1
+          },
+          {
+            "file": "license_plate_val_0050",
+            "class": "license_plate",
+            "px_w": 25.0,
+            "px_h": 4.0
+          },
+          {
+            "file": "license_plate_val_0105",
+            "class": "license_plate",
+            "px_w": 31.0,
+            "px_h": 5.0
+          },
+          {
+            "file": "license_plate_val_0111",
+            "class": "license_plate",
+            "px_w": 38.9,
+            "px_h": 9.2
+          }
+        ]
+      },
+      "huge_boxes": {
+        "count": 39,
+        "by_class": {
+          "ambulance": 17,
+          "fire_truck": 12,
+          "police": 10
+        },
+        "samples": [
+          {
+            "file": "ambulance_val_0008",
+            "class": "ambulance",
+            "norm_w": 0.809,
+            "norm_h": 0.977
+          },
+          {
+            "file": "ambulance_val_0013",
+            "class": "ambulance",
+            "norm_w": 0.856,
+            "norm_h": 0.804
+          },
+          {
+            "file": "ambulance_val_0017",
+            "class": "ambulance",
+            "norm_w": 0.974,
+            "norm_h": 0.818
+          },
+          {
+            "file": "ambulance_val_0035",
+            "class": "ambulance",
+            "norm_w": 0.856,
+            "norm_h": 0.804
+          },
+          {
+            "file": "ambulance_val_0036",
+            "class": "ambulance",
+            "norm_w": 0.972,
+            "norm_h": 0.924
+          }
+        ]
+      },
+      "bad_class": {
+        "count": 0,
+        "samples": []
+      },
+      "lp_quality": {
+        "total_boxes": 179,
+        "too_small": 70,
+        "too_small_pct": 39.1,
+        "px_w_min": 15.1,
+        "px_w_max": 1932.0,
+        "px_w_avg": 227.2,
+        "px_w_med": 176.0,
+        "px_h_min": 4.0,
+        "px_h_max": 839.6,
+        "px_h_avg": 72.0,
+        "px_h_med": 50.0,
+        "norm_w_avg": 0.2531,
+        "norm_h_avg": 0.1012
+      }
+    }
+  ]
+}

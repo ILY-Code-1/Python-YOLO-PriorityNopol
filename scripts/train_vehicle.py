@@ -79,10 +79,10 @@ EXPERIMENT_NAME  = "vehicle_detection"
 OUTPUT_MODEL_DIR = Path("model")
 
 # Set RESUME = True untuk lanjut dari checkpoint terakhir
-RESUME = False
+RESUME = True
 
 # Path last.pt (hanya dipakai saat RESUME=True)
-LAST_PT = Path(PROJECT_DIR) / EXPERIMENT_NAME / "weights" / "last.pt"
+LAST_PT = Path("runs/detect") / Path(PROJECT_DIR) / EXPERIMENT_NAME / "weights" / "last.pt"
 
 # Pretrained base (hanya dipakai saat RESUME=False)
 PRETRAINED_MODEL = "yolov8n.pt"

@@ -12,7 +12,7 @@ name: CI/CD - Deploy Priority Vehicle API
 on:
   push:
     branches:
-      - main
+      - test
   # Izinkan trigger manual dari GitHub UI (tab Actions → Run workflow)
   workflow_dispatch:
 
