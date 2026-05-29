@@ -23,6 +23,8 @@ Response (mobile-friendly, tanpa gambar/base64):
 
 import logging
 
+import cv2
+
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
 
@@ -133,6 +135,20 @@ async def detect(
 
             # ── 7. OCR pada crop plat ────────────────────────────────────────
             if plate_crop is not None:
+                # Plat kecil (mis. fire_truck) sulit dibaca OCR — upscale dulu.
+                ph, pw = plate_crop.shape[:2]
+                if ph < 80:
+                    scale = max(3, int(240 / ph))
+                    plate_crop = cv2.resize(
+                        plate_crop,
+                        (int(pw * scale), int(ph * scale)),
+                        interpolation=cv2.INTER_CUBIC,
+                    )
+                    log.info(
+                        "[detect] plate_crop upscaled %dx to (%dx%d)",
+                        scale, pw * scale, ph * scale,
+                    )
+
                 plate_number   = ocr_service.read_plate(plate_crop)
                 plate_detected = True
 

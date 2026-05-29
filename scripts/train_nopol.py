@@ -44,18 +44,20 @@ Keuntungan dua tahap:
 ──────────────────────────────────────────────────────────────────────────────
 AUGMENTASI KHUSUS SMALL OBJECT
 ──────────────────────────────────────────────────────────────────────────────
-scale=0.9    : Zoom lebih ekstrem → plat muncul di berbagai ukuran
+scale=0.7    : Zoom moderat setelah label dibersihkan
 translate=0.2: Geser lebih jauh → plat di pinggir frame tetap dilatih
 degrees=10   : Rotasi lebih → plat miring (parkir, sudut kamera)
-perspective=0.0003: Distorsi perspektif → foto dari sudut miring
-erasing=0.4  : Random erase → nopol terpotong sebagian, model lebih robust
+perspective=0.0005: Distorsi perspektif sedikit lebih kuat
+erasing=0.0  : Nonaktif — jangan hapus piksel plat yang sudah sedikit
+fliplr=0.0   : Nonaktif — plat tidak simetris, flip merusak karakter OCR
+copy_paste=0.3: Paste plat dari gambar lain → boost co-annotation 30%
 mosaic=1.0   : Tetap: 4-in-1 memberikan variasi background
 ──────────────────────────────────────────────────────────────────────────────
 ESTIMASI WAKTU (CPU laptop)
-  ~800 gambar dengan plat, batch=4 → 200 batch/epoch
-  ~0.35s/batch → 70s = ±1.2 menit/epoch
-  60 epoch penuh  : ±1.2 jam
-  Dengan patience : berhenti ~30-40 epoch → ±45 menit
+  ~500 gambar dengan plat, batch=2 → 250 batch/epoch
+  ~0.35s/batch → 87s = ±1.5 menit/epoch
+  80 epoch penuh  : ±2 jam
+  Dengan patience : berhenti ~40-60 epoch → ±1 jam
 ──────────────────────────────────────────────────────────────────────────────
 """
 
@@ -87,9 +89,9 @@ PRETRAINED_MODEL = "yolov8n.pt"
 
 # ─── Hyperparameter ───────────────────────────────────────────────────────────
 
-EPOCHS      = 60      # Satu kelas, lebih cepat konvergen dari model 4-kelas
-IMAGE_SIZE  = 640     # Setelah crop kendaraan, plat mengisi ~20-40% → cukup
-BATCH_SIZE  = 4       # Hemat RAM, cache-friendly
+EPOCHS      = 80      # Lebih panjang: dataset clean membutuhkan lebih banyak epoch
+IMAGE_SIZE  = 832     # Lebih besar: plat kecil perlu resolusi tinggi
+BATCH_SIZE  = 2       # Turun dari 4: IMAGE_SIZE naik, RAM tetap terjaga
 WORKERS     = 0       # Windows CPU: workers=0 lebih stabil
 DEVICE      = "cpu"
 
@@ -255,24 +257,26 @@ def train():
         mosaic=1.0,                 # 4-in-1: variasi ukuran dan posisi plat
         mixup=0.0,                  # Skip: overhead CPU tidak sepadan
 
-        # Geometri — lebih agresif untuk melatih plat di berbagai kondisi
-        scale=0.9,                  # 0.5→0.9: zoom jauh lebih ekstrem → plat berbagai ukuran
-        translate=0.2,              # 0.1→0.2: plat sering di pinggir crop kendaraan
-        degrees=10,                 # 5→10: plat miring, foto dari sudut berbeda
-        perspective=0.0003,         # Distorsi perspektif: foto dari samping/atas
-        shear=3,                    # Slight shear: sudut foto bervariasi
+        # Geometri
+        scale=0.7,                  # Turun dari 0.9: label baru lebih bersih, tidak perlu ekstrem
+        translate=0.2,
+        degrees=10,
+        perspective=0.0005,         # Naik sedikit: plat sering difoto dari sudut miring
+        shear=3,
 
-        # Warna — invariansi kondisi cahaya dan kamera
+        # Warna
         hsv_h=0.02,
         hsv_s=0.7,
-        hsv_v=0.5,                  # Lebih tinggi: plat di bayangan/terang
+        hsv_v=0.5,
 
         # Robustness
-        erasing=0.4,                # Random erase: plat terpotong sebagian
-        fliplr=0.5,
+        erasing=0.0,                # Matikan: jangan hapus piksel plat yang sudah sedikit
+        fliplr=0.0,                 # Matikan: plat nomor tidak simetris, flip merusak OCR
+        copy_paste=0.3,             # Paste plat dari gambar lain: boost co-annotation
 
         # Nonaktifkan multi_scale — plat kecil, resize per-batch justru rugikan
         multi_scale=False,
+        overlap_mask=False,         # Hindari mask overlap antar bbox plat
     )
 
     elapsed = time.time() - t_start
@@ -280,15 +284,24 @@ def train():
     m, s = divmod(m, 60)
 
     # ── Copy best.pt ────────────────────────────────────────────────────────
-    best_src = Path(PROJECT_DIR) / EXPERIMENT_NAME / "weights" / "best.pt"
+    # Ultralytics may prefix project with runs/detect/ depending on version.
+    # Check both paths and use whichever exists.
     best_dst = OUTPUT_MODEL_DIR / "nopol_best.pt"
+    candidate_paths = [
+        Path(PROJECT_DIR) / EXPERIMENT_NAME / "weights" / "best.pt",
+        Path("runs/detect") / PROJECT_DIR / EXPERIMENT_NAME / "weights" / "best.pt",
+    ]
+    best_src = next((p for p in candidate_paths if p.exists()), None)
 
     print(f"\n[3/3] Menyalin model terbaik ke: {best_dst}")
-    if best_src.exists():
+    if best_src:
         shutil.copy2(best_src, best_dst)
-        print(f"  OK Model disimpan: {best_dst}")
+        print(f"  OK Model disimpan dari: {best_src}")
+        print(f"  OK Model disimpan ke  : {best_dst}")
     else:
-        print(f"  GAGAL best.pt tidak ada: {best_src}")
+        print(f"  GAGAL best.pt tidak ada. Coba cari di:")
+        for p in candidate_paths:
+            print(f"    {p}")
 
     # ── Summary ─────────────────────────────────────────────────────────────
     actual_epochs = results.epoch if hasattr(results, "epoch") else "?"
