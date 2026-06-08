@@ -213,7 +213,44 @@ class OCRService:
           " B 1234 XYZ " -> "B1234XYZ"
           "B.1234-XYZ"   -> "B1234XYZ"
         """
-        return re.sub(r"[^A-Z0-9]", "", raw_text.upper()).strip()
+        cleaned = re.sub(r"[^A-Z0-9]", "", raw_text.upper()).strip()
+
+        # ── Koreksi OCR misread umum pada plat Indonesia ──────────────
+        # Segmen terakhir plat selalu huruf (bukan angka).
+        # Deteksi segmen: [huruf][angka][huruf] → koreksi digit di akhir.
+
+        # Pisahkan cleaned menjadi 3 segmen: prefix_letters, digits, suffix_letters
+        match = re.match(r'^([A-Z]{1,2})(\d{1,4})([A-Z0-9]{1,3})$', cleaned)
+        if match:
+            prefix  = match.group(1)   # huruf awal  e.g. "BK"
+            numbers = match.group(2)   # angka tengah e.g. "9174"
+            suffix  = match.group(3)   # akhiran      e.g. "MS7" → harusnya "MSI"
+
+            # Koreksi digit → huruf di segmen akhir (common OCR misreads)
+            DIGIT_TO_LETTER = {
+                '0': 'O',
+                '1': 'I',
+                '7': 'I',   # 7 sering dibaca sebagai I
+                '6': 'G',
+                '8': 'B',
+                '5': 'S',
+                '2': 'Z',
+            }
+
+            corrected_suffix = ""
+            for ch in suffix:
+                if ch.isdigit() and ch in DIGIT_TO_LETTER:
+                    corrected_suffix += DIGIT_TO_LETTER[ch]
+                    log.info(
+                        "[OCRService] Koreksi suffix: '%s' → '%s'",
+                        ch, DIGIT_TO_LETTER[ch]
+                    )
+                else:
+                    corrected_suffix += ch
+
+            cleaned = prefix + numbers + corrected_suffix
+
+        return cleaned
 
     # ─── Public: baca plat nomor ─────────────────────────────────────────────
 
