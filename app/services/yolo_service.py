@@ -221,7 +221,7 @@ class YOLOService:
 
             # Prefer smaller plates (real plates are small relative to vehicle).
             # Squared agar gap (1 - pw/crop_w) lebih agresif memberatkan bbox lebar.
-            size_penalty = (1.0 - (pw / crop_w)) ** 2   # smaller pw → higher score
+            size_penalty = (1.0 - (pw / crop_w)) ** 3   # smaller pw → higher score
 
             score = conf * position_bonus * size_penalty
             return score
