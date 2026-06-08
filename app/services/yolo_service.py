@@ -216,14 +216,18 @@ class YOLOService:
 
             conf = p["confidence"]
 
-            # Prefer plates in lower half of vehicle (cy > 50% of crop height)
+            # Prefer plates in lower half of vehicle
             position_bonus = 1.2 if cy > crop_h * 0.5 else 0.8
 
-            # Prefer smaller plates (real plates are small relative to vehicle).
-            # Squared agar gap (1 - pw/crop_w) lebih agresif memberatkan bbox lebar.
-            size_penalty = (1.0 - (pw / crop_w)) ** 3   # smaller pw → higher score
+            # Stronger size penalty (cubed)
+            size_penalty = (1.0 - (pw / crop_w)) ** 3
 
-            score = conf * position_bonus * size_penalty
+            # Extra bonus for very small plates (w_ratio < 0.12)
+            # Real Indonesian license plates are small relative to vehicle width
+            w_ratio = pw / crop_w
+            small_plate_bonus = 1.5 if w_ratio < 0.12 else 1.0
+
+            score = conf * position_bonus * size_penalty * small_plate_bonus
             return score
 
         if valid_plates:
