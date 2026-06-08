@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────────────────────
 # Dockerfile – Priority Vehicle Detection API
 # Stack : FastAPI + YOLOv8n (Ultralytics) + EasyOCR
-# Image : python:3.10-slim
+# Image : python:3.11-slim
 # Port  : 8000
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -10,7 +10,7 @@
 # │  Pisahkan layer install dari layer copy code agar cache         │
 # │  requirements.txt tidak invalidated setiap push kode.           │
 # └─────────────────────────────────────────────────────────────────┘
-FROM python:3.10-slim AS builder
+FROM python:3.11-slim AS builder
 
 WORKDIR /install
 
@@ -44,7 +44,7 @@ RUN pip install --no-cache-dir --prefix=/install/packages \
 # ┌─────────────────────────────────────────────────────────────────┐
 # │  STAGE 2 – runtime image (final, lebih kecil)                   │
 # └─────────────────────────────────────────────────────────────────┘
-FROM python:3.10-slim AS runtime
+FROM python:3.11-slim AS runtime
 
 # Metadata image
 LABEL maintainer="Priority Vehicle Detection Research"
