@@ -212,8 +212,6 @@ class YOLOService:
         def plate_score(p, crop_w, crop_h):
             x1, y1, x2, y2 = p["bbox"]
             pw = x2 - x1
-            ph = y2 - y1
-            cx = (x1 + x2) / 2
             cy = (y1 + y2) / 2
 
             conf = p["confidence"]
