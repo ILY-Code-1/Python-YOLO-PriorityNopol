@@ -95,10 +95,6 @@ USER appuser
 # Expose port aplikasi
 EXPOSE 2200
 
-# Health check: verifikasi API merespons setiap 30 detik
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD curl -f http://localhost:2200/health || exit 1
-
 # Entrypoint: jalankan FastAPI dengan uvicorn
 CMD ["uvicorn", "app.main:app", \
      "--host", "0.0.0.0", \
