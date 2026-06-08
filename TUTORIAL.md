@@ -256,7 +256,7 @@ Expected JSON response:
 | Variable | Start at | Lower if... | Raise if... |
 |---|:---:|---|---|
 | `VEHICLE_CONF_THRESHOLD` | `0.15` | Missing valid detections (silver / side-angle vehicles) | Too many false positives on non-priority vehicles |
-| `NOPOL_CONF_THRESHOLD` | `0.10` | Plates not being localized | OCR returning garbage from non-plate regions |
+| `NOPOL_CONF_THRESHOLD` | `0.05` | Plates not being localized | OCR returning garbage from non-plate regions |
 
 Tune one at a time, evaluate on `example_images/`, then commit your `.env`.
 
