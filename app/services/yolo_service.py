@@ -196,7 +196,7 @@ class YOLOService:
             h_ratio = ph / crop_h
 
             if (1.5 <= aspect  <= 6.0  and
-                0.05 <= w_ratio <= 0.20 and
+                0.05 <= w_ratio <= 0.30 and
                 0.03 <= h_ratio <= 0.20):
                 valid_plates.append(plate)
                 log.info(
