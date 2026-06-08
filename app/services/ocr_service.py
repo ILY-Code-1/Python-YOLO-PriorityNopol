@@ -206,51 +206,55 @@ class OCRService:
 
     def _clean_plate_text(self, raw_text: str) -> str:
         """
-        Bersihkan teks OCR menjadi format nomor polisi Indonesia standar.
+        Bersihkan teks OCR menjadi format nomor polisi Indonesia standar
+        ([1-2 HURUF][1-4 ANGKA][1-3 HURUF]) lalu koreksi misread di suffix.
+
+        Strategi aman: HANYA koreksi bila hasil pembersihan cocok dengan
+        format ketat. Bila tidak cocok, kembalikan apa adanya — lebih baik
+        salah dari pada merusak teks yang masih bisa dipakai downstream.
 
         Contoh:
           "b 1234 xyz"   -> "B1234XYZ"
           " B 1234 XYZ " -> "B1234XYZ"
           "B.1234-XYZ"   -> "B1234XYZ"
+          "BK9174MS7"    -> "BK9174MSI"   (suffix '7' -> 'I')
         """
         cleaned = re.sub(r"[^A-Z0-9]", "", raw_text.upper()).strip()
 
-        # ── Koreksi OCR misread umum pada plat Indonesia ──────────────
-        # Segmen terakhir plat selalu huruf (bukan angka).
-        # Deteksi segmen: [huruf][angka][huruf] → koreksi digit di akhir.
+        DIGIT_TO_LETTER = {
+            '0': 'O', '1': 'I', '7': 'I',
+            '6': 'G', '8': 'B', '5': 'S',
+            '2': 'Z', '4': 'A', '3': 'E',
+        }
+        # Only correct plates that match strict Indonesian format
+        # [1-2 letters][1-4 digits][1-3 letters/digits]
+        match = re.match(
+            r'^([A-Z]{1,2})(\d{1,4})([A-Z0-9]{1,3})$', cleaned
+        )
+        if not match:
+            # Does not match plate format — return as-is, no correction
+            return cleaned
 
-        # Pisahkan cleaned menjadi 3 segmen: prefix_letters, digits, suffix_letters
-        match = re.match(r'^([A-Z]{1,2})(\d{1,4})([A-Z0-9]{1,3})$', cleaned)
-        if match:
-            prefix  = match.group(1)   # huruf awal  e.g. "BK"
-            numbers = match.group(2)   # angka tengah e.g. "9174"
-            suffix  = match.group(3)   # akhiran      e.g. "MS7" → harusnya "MSI"
+        prefix = match.group(1)   # already all letters, no correction needed
+        middle = match.group(2)   # already all digits, no correction needed
+        suffix = match.group(3)   # may have digit misreads → correct to letters
 
-            # Koreksi digit → huruf di segmen akhir (common OCR misreads)
-            DIGIT_TO_LETTER = {
-                '0': 'O',
-                '1': 'I',
-                '7': 'I',   # 7 sering dibaca sebagai I
-                '6': 'G',
-                '8': 'B',
-                '5': 'S',
-                '2': 'Z',
-            }
+        # Fix SUFFIX only: digits → letters
+        corrected_suffix = "".join(
+            DIGIT_TO_LETTER.get(ch, ch) if ch.isdigit() else ch
+            for ch in suffix
+        )
 
-            corrected_suffix = ""
-            for ch in suffix:
-                if ch.isdigit() and ch in DIGIT_TO_LETTER:
-                    corrected_suffix += DIGIT_TO_LETTER[ch]
-                    log.info(
-                        "[OCRService] Koreksi suffix: '%s' → '%s'",
-                        ch, DIGIT_TO_LETTER[ch]
-                    )
-                else:
-                    corrected_suffix += ch
+        if corrected_suffix != suffix:
+            log.info("[OCRService] Koreksi suffix: '%s' → '%s'",
+                     suffix, corrected_suffix)
 
-            cleaned = prefix + numbers + corrected_suffix
+        result = prefix + middle + corrected_suffix
+        if result != cleaned:
+            log.info("[OCRService] Plate setelah koreksi: '%s' → '%s'",
+                     cleaned, result)
 
-        return cleaned
+        return result
 
     # ─── Public: baca plat nomor ─────────────────────────────────────────────
 
