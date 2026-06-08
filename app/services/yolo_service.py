@@ -177,7 +177,79 @@ class YOLOService:
             log.info("[Stage2] Tidak ada plat terdeteksi di crop kendaraan.")
             return None
 
-        best = max(plates, key=lambda p: p["confidence"])
+        # ── Filter: plat asli punya rasio aspek & ukuran yang khas, sehingga
+        #    bbox yang sekadar berskor tinggi tapi tak proporsional (mis.
+        #    teks bodi besar) dibuang DULU sebelum ambil confidence tertinggi.
+        crop_h, crop_w = vehicle_crop.shape[:2]
+
+        valid_plates: List[Dict[str, Any]] = []
+        for plate in plates:
+            x1, y1, x2, y2 = plate["bbox"]
+            pw = x2 - x1
+            ph = y2 - y1
+
+            if ph == 0:
+                continue
+
+            aspect  = pw / ph
+            w_ratio = pw / crop_w
+            h_ratio = ph / crop_h
+
+            if (1.5 <= aspect  <= 6.0  and
+                0.05 <= w_ratio <= 0.20 and
+                0.03 <= h_ratio <= 0.20):
+                valid_plates.append(plate)
+                log.info(
+                    "[Stage2] Valid plate candidate: conf=%.3f bbox=%s "
+                    "aspect=%.2f w_ratio=%.2f h_ratio=%.2f",
+                    plate["confidence"], plate["bbox"],
+                    aspect, w_ratio, h_ratio,
+                )
+
+        # Scoring: confidence × position_bonus × size_penalty.
+        # — Plat asli umumnya berada di paruh BAWAH crop kendaraan
+        #   (cy > 50% tinggi crop) DAN KECIL relatif terhadap lebar kendaraan.
+        def plate_score(p, crop_w, crop_h):
+            x1, y1, x2, y2 = p["bbox"]
+            pw = x2 - x1
+            ph = y2 - y1
+            cx = (x1 + x2) / 2
+            cy = (y1 + y2) / 2
+
+            conf = p["confidence"]
+
+            # Prefer plates in lower half of vehicle (cy > 50% of crop height)
+            position_bonus = 1.2 if cy > crop_h * 0.5 else 0.8
+
+            # Prefer smaller plates (real plates are small relative to vehicle).
+            # Squared agar gap (1 - pw/crop_w) lebih agresif memberatkan bbox lebar.
+            size_penalty = (1.0 - (pw / crop_w)) ** 2   # smaller pw → higher score
+
+            score = conf * position_bonus * size_penalty
+            return score
+
+        if valid_plates:
+            log.info(
+                "[Stage2] Plate scores: %s",
+                [(p["bbox"], round(plate_score(p, crop_w, crop_h), 3))
+                 for p in valid_plates],
+            )
+            best = max(
+                valid_plates,
+                key=lambda p: plate_score(p, crop_w, crop_h),
+            )
+        else:
+            # Fallback: jika tak ada yang lolos filter, ambil bbox TERKECIL
+            # (plat asli biasanya kecil dibanding teks bodi besar).
+            best = min(
+                plates,
+                key=lambda p: (p["bbox"][2] - p["bbox"][0])
+                              * (p["bbox"][3] - p["bbox"][1]),
+            )
+            log.warning(
+                "[Stage2] No valid plate by ratio filter, using smallest bbox"
+            )
+
         log.info(
             "[Stage2] Plat terdeteksi  conf=%.3f  bbox=%s",
             best["confidence"],
